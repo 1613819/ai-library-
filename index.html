@@ -1,0 +1,2106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no, email=no">
+<meta name="theme-color" content="#1e423b">
+<title>AI资料图书馆｜馆长主页</title>
+<style>
+:root{
+  --ink:#22272c;
+  --ink-soft:#565d61;
+  --muted:#7c817c;
+  --paper:#f7f3eb;
+  --card:#fffdf8;
+  --line:#ded6c8;
+  --line-soft:#ece5d9;
+  --pine:#1e5a4b;
+  --pine-deep:#163f36;
+  --pine-soft:#dce9e2;
+  --gold:#a97c2f;
+  --gold-soft:#f2e7cf;
+  --plum:#7c4458;
+  --plum-soft:#f1e3e8;
+  --warn:#b4443b;
+  --shadow:0 10px 24px rgba(50,42,28,.08);
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:#e9e2d5}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.62;
+  overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  letter-spacing:0;
+}
+img,svg,canvas{max-width:100%; vertical-align:middle}
+button,input{font:inherit; color:inherit}
+button{border:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+h1,h2,h3,h4,p,ul{margin:0}
+ul{list-style:none; padding:0}
+.app{
+  width:100%;
+  max-width:520px;
+  min-height:100vh;
+  margin:0 auto;
+  background:var(--paper);
+  box-shadow:0 0 40px rgba(68,55,34,.12);
+  position:relative;
+  overflow-x:hidden;
+}
+.icon{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex:none}
+.icon-sm{width:16px; height:16px}
+.icon-lg{width:24px; height:24px}
+
+/* 顶部 */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; min-height:58px; padding:10px 16px;
+  background:rgba(247,243,235,.92);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft);
+}
+.brand{display:flex; align-items:center; gap:9px; min-width:0}
+.brand-mark{
+  width:36px; height:36px; flex:none;
+  border-radius:8px;
+  background:linear-gradient(145deg,var(--pine),var(--pine-deep));
+  color:#f6ead2;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);
+}
+.brand-title{font-size:15px; font-weight:800; line-height:1.2}
+.brand-sub{font-size:11px; color:var(--muted); margin-top:2px}
+.top-actions{display:flex; align-items:center; gap:8px; flex:none}
+.status-chip{
+  display:inline-flex; align-items:center; gap:5px;
+  height:30px; padding:0 10px; border-radius:8px;
+  font-size:12px; font-weight:700; white-space:nowrap;
+}
+.status-chip.guest{background:#efe7d8; color:#846c45}
+.status-chip.member{background:var(--pine-soft); color:var(--pine)}
+
+/* 页面容器 */
+.view{display:none; padding:14px 16px 104px}
+.view.active{display:block; animation:viewIn .22s ease}
+@keyframes viewIn{from{opacity:0; transform:translateY(5px)}to{opacity:1; transform:none}}
+.section{padding:18px 0 6px}
+.section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-bottom:12px}
+.section-head h2{font-size:19px; line-height:1.25}
+.eyebrow{display:block; font-size:11px; font-weight:800; letter-spacing:0; color:var(--gold); text-transform:uppercase; margin-bottom:4px}
+.section-more{display:inline-flex; align-items:center; gap:4px; height:32px; padding:0 10px; color:var(--pine); font-size:12px; font-weight:700; background:var(--pine-soft); border-radius:8px; flex:none}
+.subtitle{color:var(--ink-soft); font-size:13px; margin-top:4px}
+
+/* 首页封面 */
+.hero{
+  position:relative;
+  border-radius:8px;
+  overflow:hidden;
+  color:#f8f1e2;
+  background:linear-gradient(135deg,#19392f 0%, #23544a 52%, #55394a 135%);
+  padding:20px 18px 18px;
+  box-shadow:var(--shadow);
+}
+.hero:before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size:26px 26px;
+  pointer-events:none;
+}
+.hero-top{position:relative; display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:14px}
+.hero-kicker{display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border-radius:8px; background:rgba(255,255,255,.12); font-size:11px; font-weight:700}
+.seal{
+  width:52px; height:52px; flex:none;
+  border-radius:50%;
+  border:1px dashed rgba(255,255,255,.55);
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.07);
+  color:#f3d9a4;
+  font-size:22px; font-weight:800;
+}
+.hero h1{position:relative; font-size:27px; line-height:1.22; font-weight:900; margin:2px 0 8px}
+.hero-desc{position:relative; font-size:13px; color:rgba(248,241,226,.86); max-width:34em}
+.hero-actions{position:relative; display:flex; gap:8px; margin-top:16px}
+.hero-note{position:relative; display:flex; align-items:center; gap:7px; margin-top:12px; font-size:11px; color:rgba(248,241,226,.7)}
+.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px}
+.stat{background:var(--card); border:1px solid var(--line-soft); border-radius:8px; padding:11px 6px; text-align:center}
+.stat b{display:block; font-size:17px; color:var(--pine)}
+.stat span{font-size:11px; color:var(--muted)}
+
+/* 卡片通用 */
+.panel{background:var(--card); border:1px solid var(--line-soft); border-radius:8px}
+.curator{display:flex; gap:12px; padding:14px}
+.curator-photo{
+  width:64px; height:64px; flex:none; border-radius:8px;
+  background:linear-gradient(145deg,var(--pine),var(--pine-deep));
+  color:#f2ddb1;
+  display:flex; align-items:center; justify-content:center;
+  font-size:24px; font-weight:900;
+}
+.curator-info h3{font-size:16px}
+.curator-info .role{display:inline-flex; margin:4px 0 7px; padding:2px 8px; border-radius:8px; background:var(--gold-soft); color:#825f23; font-size:11px; font-weight:800}
+.curator-info p{font-size:13px; color:var(--ink-soft)}
+.quote{
+  position:relative;
+  margin-top:10px; padding:13px 14px 13px 16px;
+  border-radius:8px;
+  background:var(--plum-soft);
+  color:#613a49;
+  font-size:13px;
+  font-weight:600;
+}
+.quote:before{content:"“"; position:absolute; left:7px; top:2px; font-size:22px; opacity:.5}
+
+/* 公告 */
+.notice-card{display:flex; gap:10px; padding:12px 14px; align-items:flex-start}
+.notice-icon{width:34px; height:34px; flex:none; display:flex; align-items:center; justify-content:center; border-radius:8px; background:var(--gold-soft); color:var(--gold)}
+.notice-body{min-width:0}
+.notice-body h3{font-size:13px; font-weight:800}
+.notice-body p{font-size:12px; color:var(--ink-soft); margin-top:2px}
+.notice-date{display:block; font-size:11px; color:var(--muted); margin-top:4px}
+
+/* 资料卡 */
+.collection-grid{display:grid; gap:10px}
+.resource-card{display:block; width:100%; text-align:left; background:var(--card); border:1px solid var(--line-soft); border-radius:8px; padding:13px; position:relative}
+.resource-card.is-public{border-top:3px solid var(--gold)}
+.resource-card.is-member{border-top:3px solid var(--pine)}
+.resource-card.is-basic{border-top-color:#a04b26}
+.resource-card.is-locked{background:repeating-linear-gradient(0deg,var(--card),var(--card) 3px,#fbf8f0 3px,#fbf8f0 6px)}
+.card-top{display:flex; align-items:flex-start; gap:9px}
+.file-thumb{
+  width:42px; height:56px; flex:none; border-radius:6px;
+  background:linear-gradient(160deg,#fff7e5,#e8d7b2);
+  border:1px solid #e2cf9f;
+  display:flex; align-items:center; justify-content:center;
+  color:#8d6a27;
+}
+.is-member .file-thumb{background:linear-gradient(160deg,#e8f4ef,#c6ded4); border-color:#b4d3c6; color:var(--pine)}
+.is-member.is-basic .file-thumb{background:linear-gradient(160deg,#fbead8,#eccdb1); border-color:#e0b187; color:#8c4a20}
+.card-title-wrap{min-width:0; flex:1}
+.card-code{font-size:10px; color:var(--muted); font-weight:700}
+.resource-card h3{font-size:15px; line-height:1.35; margin-top:2px}
+.cat-chip{display:inline-block; padding:2px 8px; margin-top:6px; border-radius:8px; background:var(--plum-soft); color:var(--plum); font-size:11px; font-weight:800}
+.is-public .cat-chip{background:var(--gold-soft); color:#8a6526}
+.lock-chip{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px; flex:none; border-radius:8px;
+  background:#ece6da; color:#a7a091;
+}
+.is-member .lock-chip,.is-member.is-unlocked .lock-chip{background:var(--pine-soft); color:var(--pine)}
+.is-member.is-unlocked .lock-chip{background:var(--gold-soft); color:var(--gold)}
+.card-desc{font-size:12.5px; color:var(--ink-soft); margin:10px 0 8px}
+.tags{display:flex; flex-wrap:wrap; gap:5px; margin:0 0 11px}
+.tag{font-size:10.5px; color:var(--muted); background:#f1ece2; padding:2px 7px; border-radius:8px}
+.card-meta{display:flex; justify-content:space-between; align-items:center; gap:8px; margin:10px 0 11px; font-size:11px; color:var(--muted)}
+.card-actions{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:5px;
+  min-height:42px; padding:0 12px; border-radius:8px;
+  font-size:13px; font-weight:800; white-space:nowrap;
+  transition:opacity .15s, transform .1s;
+}
+.btn:active{transform:scale(.98)}
+.btn-block{width:100%}
+.btn-pine{background:var(--pine); color:#fff}
+.btn-gold{background:var(--gold); color:#fff}
+.btn-ghost{background:#f1ece2; color:var(--ink-soft)}
+.btn-ghost-dark{border:1px solid rgba(255,255,255,.45); color:#fff; background:rgba(255,255,255,.08)}
+.btn-danger-ghost{background:#f7e7e2; color:var(--warn)}
+.btn.disabled{opacity:.55; pointer-events:none}
+.need-member.member-locked{background:#776f63; color:#fff}
+
+/* 会员横幅 */
+.member-banner{border-radius:8px; padding:13px; display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px}
+.member-banner.guest-state{background:linear-gradient(135deg,#3a2d26,#584233 70%,#755236); color:#f4e8cf}
+.member-banner.member-state{background:linear-gradient(135deg,var(--pine-deep),var(--pine)); color:#f2f7f3}
+.member-banner-main{display:flex; align-items:center; gap:9px; min-width:0}
+.member-banner h3{font-size:14px}
+.member-banner p{font-size:11.5px; opacity:.88; margin-top:2px}
+.member-banner .btn{min-height:36px; padding:0 10px; font-size:12px; flex:none}
+
+/* 权益 */
+.benefit-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.benefit-item{display:flex; gap:8px; align-items:flex-start; background:var(--card); border:1px solid var(--line-soft); border-radius:8px; padding:11px}
+.benefit-item .b-icon{width:32px; height:32px; flex:none; display:flex; align-items:center; justify-content:center; border-radius:8px; background:var(--pine-soft); color:var(--pine)}
+.benefit-item h4{font-size:13px}
+.benefit-item p{font-size:11px; color:var(--muted); margin-top:2px}
+.price-line{display:flex; align-items:baseline; gap:8px; padding:12px 14px; border-radius:8px; background:var(--gold-soft); margin-top:10px}
+.price-line b{font-size:24px; color:#7c551b}
+.price-line span{font-size:12px; color:#8a6b38}
+
+/* 激活 */
+.activate-box{border:1px dashed #c8b995; border-radius:8px; padding:13px; margin-top:10px; background:#f4eee1}
+.activate-box h3{font-size:14px}
+.activate-box .note{font-size:11px; color:var(--muted); margin-top:4px}
+.activate-form{display:flex; gap:8px; margin-top:10px}
+.activate-form input{
+  flex:1; min-width:0; height:44px; padding:0 12px;
+  border:1px solid var(--line); border-radius:8px; background:#fffdf8;
+}
+.activate-form input:focus{outline:2px solid rgba(30,90,75,.35); border-color:var(--pine)}
+.member-status-card{background:linear-gradient(135deg,var(--pine-deep),var(--pine)); color:#eef6ef; border-radius:8px; padding:16px}
+.member-status-card .row{display:flex; justify-content:space-between; gap:10px; font-size:12px; margin-top:8px}
+.member-number{font-size:10px; opacity:.75; letter-spacing:0; word-break:break-all}
+
+/* 页脚 */
+.footer{border-top:1px solid var(--line-soft); padding:20px 16px 8px; font-size:11px; color:var(--muted)}
+.footer .foot-title{color:var(--ink-soft); font-weight:800; margin-bottom:6px}
+.footer ul{margin-top:8px}
+.footer li{padding:3px 0}
+
+/* 底部导航 */
+.bottom-nav{
+  position:fixed; z-index:60;
+  left:50%; bottom:0; transform:translateX(-50%);
+  width:min(520px,100%); height:64px;
+  display:grid; grid-template-columns:repeat(5,1fr);
+  background:rgba(255,253,248,.96);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  border-top:1px solid var(--line-soft);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav-item{
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+  color:var(--muted); font-size:11px; font-weight:700;
+}
+.nav-item.active{color:var(--pine)}
+.nav-item .icon{width:20px; height:20px}
+
+/* 弹层 */
+.overlay{
+  position:fixed; inset:0; z-index:100;
+  display:none; align-items:flex-end; justify-content:center;
+  background:rgba(20,24,22,.55);
+  padding-top:8vh;
+}
+.overlay.open{display:flex}
+.modal{
+  width:min(520px,100%); max-height:92vh; overflow-y:auto;
+  background:var(--paper);
+  border-radius:8px 8px 0 0;
+  box-shadow:0 -10px 40px rgba(0,0,0,.18);
+  animation:slideUp .22s ease;
+}
+@keyframes slideUp{from{transform:translateY(28px); opacity:.4}to{transform:none; opacity:1}}
+.modal-head{position:sticky; top:0; z-index:5; display:flex; align-items:center; justify-content:space-between; gap:8px; padding:14px 16px 10px; background:var(--paper); border-bottom:1px solid var(--line-soft)}
+.modal-head h3{font-size:16px}
+.modal-body{padding:14px 16px 18px}
+.close-btn{width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:8px; background:#ece5d9; color:var(--ink-soft)}
+.notice-lock{
+  display:flex; align-items:flex-start; gap:8px;
+  border-radius:8px; padding:11px 12px; margin-bottom:12px;
+  background:var(--plum-soft); color:#6d3546;
+  font-size:13px; font-weight:700; line-height:1.45;
+}
+.modal-intro{font-size:13px; color:var(--ink-soft); margin-bottom:12px}
+.contact-line{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; padding:11px 12px; background:var(--card); border:1px solid var(--line-soft); border-radius:8px}
+.contact-line .label{font-size:11px; color:var(--muted)}
+.contact-line b{font-size:14px}
+
+/* 预览 */
+.preview-head{display:flex; align-items:center; gap:9px; margin-bottom:12px}
+.preview-code{font-size:11px; color:var(--muted)}
+.doc-box{
+  background:#fffdf8; border:1px solid var(--line-soft); border-radius:8px;
+  padding:14px; min-height:160px; max-height:44vh; overflow-y:auto;
+  font-size:13px; color:#3c403f; line-height:1.8;
+  white-space:pre-wrap; word-break:break-word;
+}
+.preview-actions{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px}
+
+/* 文件条目 */
+.file-row{display:flex; align-items:center; gap:9px; padding:9px 11px; background:var(--card); border:1px solid var(--line-soft); border-radius:8px; margin-bottom:7px}
+.file-row .f-icon{width:30px; height:30px; flex:none; display:flex; align-items:center; justify-content:center; border-radius:8px; background:var(--pine-soft); color:var(--pine)}
+.file-row b{font-size:13px; display:block}
+.file-row span{font-size:10px; color:var(--muted)}
+.file-row .btn{margin-left:auto; min-height:32px; font-size:11px}
+
+/* toast */
+.toast{
+  position:fixed; z-index:150; left:50%; bottom:84px; transform:translateX(-50%) translateY(10px);
+  width:max-content; max-width:88vw;
+  padding:10px 15px; border-radius:8px;
+  background:#2d3631; color:#f7f1e4; font-size:13px; font-weight:700;
+  opacity:0; pointer-events:none; transition:.2s;
+  box-shadow:0 8px 24px rgba(0,0,0,.2);
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+.error-shake{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.hidden{display:none!important}
+.muted{color:var(--muted); font-size:12px}
+.divider{height:1px; background:var(--line-soft); margin:14px 0}
+.center{text-align:center}
+
+/* 工作台与角色 */
+.wb-toolbar{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0}
+.wb-toolbar .btn{flex:1 1 auto}
+.role-card{background:var(--card); border:1px solid var(--line-soft); border-radius:8px; padding:13px; margin-bottom:10px}
+.role-card h3{font-size:15px}
+.role-card p{font-size:12px; color:var(--muted); margin-top:3px}
+.code-box{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 12px; border-radius:8px; background:var(--gold-soft); margin-top:9px}
+.code-box b{font-size:17px; color:#6f4e14; letter-spacing:1px; word-break:break-all}
+.field{margin-bottom:9px}
+.field label{display:block; font-size:11px; font-weight:800; color:var(--ink-soft); margin-bottom:4px}
+.field input,.field textarea,.field select{width:100%; min-height:40px; padding:8px 10px; border:1px solid var(--line); border-radius:8px; background:#fffdf8; font-size:13px}
+.field textarea{min-height:70px; resize:vertical; line-height:1.55}
+.field select{appearance:none}
+.field-row{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.doc-row{display:flex; justify-content:space-between; align-items:center; gap:8px; background:var(--card); border:1px solid var(--line-soft); border-radius:8px; padding:10px 11px; margin-bottom:7px}
+.doc-row-main{min-width:0}
+.doc-row-main b{font-size:13px; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.doc-row-main span{font-size:11px; color:var(--muted)}
+.doc-row-actions{display:flex; gap:6px; flex:none}
+.doc-row-actions .btn{min-height:32px; padding:0 9px; font-size:11px}
+.empty-tip{background:var(--card); border:1px dashed var(--line); border-radius:8px; padding:18px; text-align:center; color:var(--muted); font-size:12px}
+.warn-box{background:var(--plum-soft); color:#64344a; border-radius:8px; padding:11px 12px; font-size:12px; margin:10px 0}
+.free-hero{display:flex; align-items:center; justify-content:space-between; gap:14px; border-radius:8px; padding:18px 16px; background:linear-gradient(135deg,#3c2d24,#6d4b2f 62%,#93703c); color:#f8efdc; box-shadow:var(--shadow)}
+.free-hero h2{font-size:23px; margin-top:2px}
+.free-hero p{font-size:12.5px; color:rgba(248,239,220,.86); margin-top:6px; max-width:34em}
+.free-hero-seal{width:58px; height:58px; flex:none; border-radius:50%; border:1px dashed rgba(255,255,255,.6); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; background:rgba(255,255,255,.08)}
+.free-hero-seal b{font-size:11px}
+.free-pack{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; padding:13px 14px; border-radius:8px; background:var(--pine-deep); color:#f2f7f3}
+.free-pack h3{font-size:15px}
+.free-pack p{font-size:11.5px; opacity:.85; margin-top:2px}
+.free-pack .btn{flex:none}
+.basic-hero{border-radius:8px; padding:17px 16px; color:#fff4e6; background:linear-gradient(135deg,#6d2f22,#a04b26 58%,#bd7a2e); box-shadow:var(--shadow)}
+.basic-hero .eyebrow{color:#f2c26a}
+.basic-hero h2{font-size:22px; margin-top:2px}
+.basic-hero p{font-size:12.5px; color:rgba(255,244,230,.9); margin-top:6px}
+.basic-price-row{display:flex; align-items:baseline; gap:7px; margin-top:12px}
+.basic-price-row b{font-size:25px}
+.basic-price-row span{font-size:12px; opacity:.85}
+.basic-banner{border-radius:8px; padding:13px; margin-top:12px; display:flex; align-items:center; justify-content:space-between; gap:10px}
+.basic-banner.locked{background:#3c2a25; color:#f7e8d9}
+.basic-banner.unlocked{background:var(--pine-deep); color:#eef6ef}
+.basic-banner h3{font-size:14px}
+.basic-banner p{font-size:11.5px; opacity:.88; margin-top:2px}
+.basic-banner .btn{flex:none; min-height:36px; font-size:12px}
+</style>
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9.5Z"/><path d="M9 21v-8h6v8"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M9 7h7M9 11h7"/></symbol>
+  <symbol id="i-vip" viewBox="0 0 24 24"><path d="M3.5 8.5 7 12.5l5-8 5 8 3.5-4-2 11.2a1 1 0 0 1-1 .8H6.5a1 1 0 0 1-1-.8L3.5 8.5Z"/><path d="m10.5 10 1.5-2 1.5 2-2.4 1.2-1.2-1.2Z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></symbol>
+  <symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 7.5-2"/><path d="M12 14v3"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v11m0 0-4-4m4 4 4-4M4 21h16"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-update" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M21 3v6h-6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l6 6v14H6z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+</svg>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark"><svg class="icon"><use href="#i-book"/></svg></div>
+      <div>
+        <div class="brand-title">AI资料图书馆</div>
+        <div class="brand-sub">馆长主页 · 会员馆藏</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="status-chip guest" id="topStatus"><svg class="icon icon-sm"><use href="#i-lock"/></svg><span id="topStatusText">游客</span></span>
+      <button class="status-chip member" id="topMemberBtn" type="button" onclick="switchView('member')"><svg class="icon icon-sm"><use href="#i-vip"/></svg><span>会员中心</span></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 首页 -->
+    <section class="view active" id="view-home" data-view="home">
+      <div class="hero">
+        <div class="hero-top">
+          <span class="hero-kicker"><svg class="icon icon-sm"><use href="#i-shield"/></svg>馆长认证 · 正版资料库</span>
+          <div class="seal">馆</div>
+        </div>
+        <p class="hero-kicker" style="margin-bottom:10px">AI资料图书馆 ｜ 馆长主页</p>
+        <h1>把有用、更新、能落地的资料，整理成一座随身图书馆。</h1>
+        <p class="hero-desc">你好，我是这座资料馆的馆长。这里不是“网盘大杂烩”，而是经过筛选、编号、持续维护的干货馆藏。游客可免费预览公开区；开通会员即可永久解锁全套资料与下载权限。</p>
+        <div class="hero-actions">
+          <button class="btn btn-ghost-dark" type="button" onclick="goTo('homePublic')"><svg class="icon icon-sm"><use href="#i-eye"/></svg>浏览公开资料</button>
+          <button class="btn btn-gold" type="button" onclick="openMemberModal('游客可免费预览，会员解锁全部资料')"><svg class="icon icon-sm"><use href="#i-vip"/></svg>查看会员权益</button>
+        </div>
+        <div class="hero-note"><svg class="icon icon-sm"><use href="#i-update"/></svg>馆藏更新：2026-09-05 · 本周已新增 3 册干货</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b id="statTotal">36</b><span>馆藏资料</span></div>
+        <div class="stat"><b>每周日</b><span>定期更新</span></div>
+        <div class="stat"><b>终身</b><span>会员权限</span></div>
+      </div>
+
+      <section class="section">
+        <div class="section-head">
+          <div><span class="eyebrow">Curator</span><h2>馆长介绍</h2></div>
+        </div>
+        <div class="panel curator">
+          <div class="curator-photo">馆</div>
+          <div class="curator-info">
+            <h3 id="curatorName">图书馆馆长</h3>
+            <span class="role" id="curatorTitle">AI资料图书馆 · 主理人</span>
+            <p id="curatorIntro">馆长介绍将在页面初始化时读取配置区内容。</p>
+          </div>
+        </div>
+        <div class="quote" id="curatorMessage">馆长寄语将在页面初始化时读取配置区内容。</div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div><span class="eyebrow">Notice</span><h2>馆藏公告</h2></div>
+        </div>
+        <div class="panel notice-card">
+          <div class="notice-icon"><svg class="icon"><use href="#i-update"/></svg></div>
+          <div class="notice-body">
+            <h3 id="announceTitle">本周资料更新完成</h3>
+            <p id="announceText">馆藏公告将在页面初始化时读取配置区内容。</p>
+            <span class="notice-date" id="announceDate">更新于 2026-09-05 21:00</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="homePublic">
+        <div class="section-head">
+          <div><span class="eyebrow">Public Shelves</span><h2>馆藏公开资料区</h2><p class="subtitle">公开资料可免费阅读和下载，会员专属馆藏单独锁定</p></div>
+          <button class="section-more" type="button" onclick="switchView('public')">公开资料馆<svg class="icon icon-sm"><use href="#i-arrow"/></svg></button>
+        </div>
+        <div class="collection-grid" id="homeFreeGrid"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div><span class="eyebrow">Member Shelves</span><h2>会员专属馆藏区</h2><p class="subtitle">资料锁开启前仅展示目录，会员解锁后彩色可阅</p></div>
+          <button class="section-more" type="button" onclick="switchView('library')">查看全部<svg class="icon icon-sm"><use href="#i-arrow"/></svg></button>
+        </div>
+        <div class="member-banner guest-state" id="homeMemberBanner">
+          <div class="member-banner-main">
+            <svg class="icon icon-lg" id="homeMemberIcon"><use href="#i-lock"/></svg>
+            <div><h3 id="homeMemberTitle">会员馆藏已上锁</h3><p id="homeMemberText">游客仅可见目录与简介，无法预览全套资料。</p></div>
+          </div>
+          <button class="btn btn-gold" type="button" onclick="openMemberModal('请开通图书馆会员解锁全套资料与下载权限')">开通会员</button>
+        </div>
+        <div class="collection-grid" id="homeMemberGrid"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><div><span class="eyebrow">Benefits</span><h2>会员权益一览</h2></div></div>
+        <div class="benefit-grid">
+          <div class="benefit-item"><span class="b-icon"><svg class="icon icon-sm"><use href="#i-eye"/></svg></span><div><h4>全套在线预览</h4><p>会员馆藏资料完整内容可读</p></div></div>
+          <div class="benefit-item"><span class="b-icon"><svg class="icon icon-sm"><use href="#i-download"/></svg></span><div><h4>完整文件下载</h4><p>公开与会员资料均可下载</p></div></div>
+          <div class="benefit-item"><span class="b-icon"><svg class="icon icon-sm"><use href="#i-update"/></svg></span><div><h4>持续更新</h4><p>更新后同一入口重新获取</p></div></div>
+          <div class="benefit-item"><span class="b-icon"><svg class="icon icon-sm"><use href="#i-user"/></svg></span><div><h4>馆内使用指导</h4><p>每份资料附使用顺序与说明</p></div></div>
+        </div>
+        <div class="price-line"><b>¥99</b><span>一次性开通 · 永久会员 · 本机长期解锁</span></div>
+      </section>
+
+      <section class="section">
+        <div class="panel notice-card">
+          <div class="notice-icon" style="background:var(--pine-soft); color:var(--pine)"><svg class="icon"><use href="#i-file"/></svg></div>
+          <div class="notice-body">
+            <h3>馆藏说明</h3>
+            <p>本馆资料均以“册”为单位编号管理，每册包含目录、正文/模板、更新日志。会员下载到的文件会同时保存一份《馆藏使用说明》，避免买完不会用。</p>
+            <span class="notice-date">馆藏总量：免费公开 8 份 · 9.9 学习资料 8 份 · 会员专属馆藏 15 册，持续更新</span>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="foot-title">AI资料图书馆 · 馆长备注</div>
+        <p>本页面由馆长维护，资料仅供已授权学员学习使用。请勿二次倒卖、盗用或公开传播馆藏内容。</p>
+        <ul>
+          <li>· 资料更新时间：每周日晚更新并发布公告</li>
+          <li>· 会员权益为永久解锁，换设备需联系馆长恢复</li>
+          <li>· 如遇链接失效，进入会员中心联系馆长补发</li>
+        </ul>
+        <button class="btn btn-ghost" style="width:100%;margin-top:12px" type="button" onclick="switchView('workbench')"><svg class="icon icon-sm"><use href="#i-user"/></svg>馆长 / 管理员工作台</button>
+        <div class="center" style="margin-top:12px">© 2026 AI资料图书馆</div>
+      </footer>
+    </section>
+
+    <!-- 公开资料馆 -->
+    <section class="view" id="view-public" data-view="public">
+      <div class="section" style="padding-top:4px">
+        <div class="free-hero">
+          <div>
+            <span class="eyebrow" style="color:#e4b76b">Free Library</span>
+            <h2>公开资料馆</h2>
+            <p>以下资料无需开通会员，游客可直接在线阅读和免费下载。会员专属馆藏仍保持锁定。</p>
+          </div>
+          <div class="free-hero-seal"><svg class="icon icon-lg"><use href="#i-file"/></svg><b>免费</b></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><b id="freeTotal">8</b><span>免费资料</span></div>
+          <div class="stat"><b>0元</b><span>直接下载</span></div>
+          <div class="stat"><b>每日</b><span>可自助领取</span></div>
+        </div>
+        <div class="free-pack">
+          <div class="free-pack-main">
+            <h3>馆长免费资料礼包</h3>
+            <p>一次打包下载全部公开资料，适合第一次进入的新学员。</p>
+          </div>
+          <button class="btn btn-gold" type="button" onclick="downloadFreeBundle()"><svg class="icon icon-sm"><use href="#i-download"/></svg>一键下载</button>
+        </div>
+        <div class="section-head" style="margin-top:16px">
+          <div><span class="eyebrow">Free Files</span><h2>免费资料目录</h2><p class="subtitle">公开资料全部免费，无需会员即可预览与下载</p></div>
+        </div>
+        <div class="filter-row" id="publicFilterRow" style="display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch"></div>
+        <div id="publicCount" class="muted" style="margin:8px 0 10px"></div>
+        <div class="collection-grid" id="publicGrid"></div>
+      </div>
+    </section>
+
+    <!-- 9.9 学习资料包 -->
+    <section class="view" id="view-basic" data-view="basic">
+      <div class="section" style="padding-top:4px">
+        <div class="basic-hero">
+          <span class="eyebrow">9.9 Package</span>
+          <h2>9.9 新手学习资料包</h2>
+          <p>一次性付费 9.9 元，只解锁本区域学习资料。此区域不含会员馆藏，会员馆藏仍需要另外开通永久会员。</p>
+          <div class="basic-price-row"><b>¥9.9</b><span>一次购买 · 本机永久解锁 · 区域内资料可反复下载</span></div>
+        </div>
+        <div class="basic-banner locked" id="basicBanner">
+          <div>
+            <h3 id="basicBannerTitle">9.9 资料包未解锁</h3>
+            <p id="basicBannerText">游客可查看目录，但下载本区域资料前需要先开通 9.9 资料包。</p>
+          </div>
+          <button class="btn btn-gold" type="button" onclick="openBasicModal()">开通 9.9 包</button>
+        </div>
+        <div class="section-head" style="margin-top:16px">
+          <div><span class="eyebrow">Package Files</span><h2>本区域学习资料</h2><p class="subtitle">共 8 份 · 仅开通 9.9 资料包后可直接下载</p></div>
+        </div>
+        <div class="collection-grid" id="basicGrid"></div>
+        <div class="warn-box">9.9 资料包与永久会员相互独立：只买 9.9 包无法解锁会员馆藏；永久会员则自动包含本区域全部资料。</div>
+      </div>
+    </section>
+
+    <!-- 馆藏页 -->
+    <section class="view" id="view-library" data-view="library">
+      <div class="section" style="padding-top:4px">
+        <div class="section-head">
+          <div><span class="eyebrow">Catalogue</span><h2>全部馆藏</h2><p class="subtitle">公开资料免费预览；会员资料下载完整文件</p></div>
+        </div>
+        <div class="filter-row" id="filterRow" style="display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch"></div>
+        <div id="libraryCount" class="muted" style="margin:8px 0 10px"></div>
+        <div class="collection-grid" id="libraryGrid"></div>
+      </div>
+    </section>
+
+    <!-- 会员中心 -->
+    <section class="view" id="view-member" data-view="member">
+      <div class="section" style="padding-top:4px">
+        <div class="section-head">
+          <div><span class="eyebrow">Member Center</span><h2>会员中心</h2><p class="subtitle">权益清单 · 全部馆藏 · 永久下载入口</p></div>
+        </div>
+        <div id="memberStateBox"></div>
+        <div id="memberBenefitsBox"></div>
+        <div id="memberResourceBox"></div>
+      </div>
+    </section>
+
+    <!-- 馆长/管理员工作台 -->
+    <section class="view" id="view-workbench" data-view="workbench">
+      <div class="section" style="padding-top:4px">
+        <div class="section-head">
+          <div><span class="eyebrow">Workbench</span><h2>工作台</h2><p class="subtitle">馆长拥有最高权限；管理员仅负责资料更新</p></div>
+          <button class="section-more" type="button" onclick="switchView('home')">返回首页<svg class="icon icon-sm"><use href="#i-arrow"/></svg></button>
+        </div>
+        <div id="workbenchBody"></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" type="button" data-nav="home" onclick="switchView('home')"><svg class="icon"><use href="#i-home"/></svg>首页</button>
+    <button class="nav-item" type="button" data-nav="public" onclick="switchView('public')"><svg class="icon"><use href="#i-file"/></svg>公开资料</button>
+    <button class="nav-item" type="button" data-nav="basic" onclick="switchView('basic')"><svg class="icon"><use href="#i-vip"/></svg>9.9资料包</button>
+    <button class="nav-item" type="button" data-nav="library" onclick="switchView('library')"><svg class="icon"><use href="#i-book"/></svg>馆藏</button>
+    <button class="nav-item" type="button" data-nav="member" onclick="switchView('member')"><svg class="icon"><use href="#i-vip"/></svg>会员中心</button>
+  </nav>
+</div>
+
+<!-- 9.9 资料包弹窗 -->
+<div class="overlay" id="basicOverlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head"><h3><svg class="icon icon-sm" style="margin-right:6px"><use href="#i-vip"/></svg>开通 9.9 学习资料包</h3><button class="close-btn" type="button" onclick="closeOverlay('basicOverlay')"><svg class="icon icon-sm"><use href="#i-close"/></svg></button></div>
+    <div class="modal-body">
+      <div class="notice-lock" id="basicModalNotice"><svg class="icon icon-sm"><use href="#i-lock"/></svg><span>请先开通 9.9 学习资料包，开通后仅解锁本区域资料下载</span></div>
+      <p class="modal-intro">开通后即可预览并下载本区域内全部学习资料；此权限不含会员馆藏，无需后续验证，本机长期可用。</p>
+      <div class="price-line"><b>¥9.9</b><span>一次开通 · 本区域资料永久下载</span></div>
+      <div class="contact-line">
+        <div><div class="label">联系馆长支付 9.9 元</div><b id="basicWechatValue"></b></div>
+        <button class="btn btn-pine" type="button" onclick="copyContact()"><svg class="icon icon-sm"><use href="#i-copy"/></svg>复制微信</button>
+      </div>
+      <div class="divider"></div>
+      <div class="activate-box">
+        <h3>已支付？输入馆长发放的 9.9 包开通码</h3>
+        <p class="note">9.9 包开通码每日更换；输入后本机永久解锁该区域。</p>
+        <div class="activate-form" id="basicActivateForm">
+          <input id="basicActivationCode" type="text" autocomplete="off" placeholder="请输入 9.9 包开通码" aria-label="9.9包开通码">
+          <button class="btn btn-gold" type="button" onclick="activateBasic()">解锁资料包</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 开通会员弹窗 -->
+<div class="overlay" id="memberOverlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head"><h3><svg class="icon icon-sm" style="margin-right:6px"><use href="#i-vip"/></svg>开通图书馆会员</h3><button class="close-btn" type="button" onclick="closeOverlay('memberOverlay')"><svg class="icon icon-sm"><use href="#i-close"/></svg></button></div>
+    <div class="modal-body">
+      <div class="notice-lock" id="memberModalNotice"><svg class="icon icon-sm"><use href="#i-lock"/></svg><span>请开通图书馆会员解锁全套资料与下载权限</span></div>
+      <p class="modal-intro">开通后立即解锁：全套资料在线预览、完整文件下载、持续更新版本与馆内使用说明。</p>
+      <div class="benefit-grid" style="grid-template-columns:1fr">
+        <div class="benefit-item"><span class="b-icon"><svg class="icon icon-sm"><use href="#i-check"/></svg></span><div><h4>永久会员 · 一次开通长期使用</h4><p>游客锁定内容全部点亮，本设备自动保持会员状态</p></div></div>
+        <div class="benefit-item"><span class="b-icon"><svg class="icon icon-sm"><use href="#i-download"/></svg></span><div><h4>所有资料真实下载</h4><p>公开资料与会员馆藏均可下载完整文件，不设二次收费</p></div></div>
+      </div>
+      <div class="price-line"><b>¥99</b><span>永久会员（活动价请以馆长微信通知为准）</span></div>
+      <div class="contact-line">
+        <div><div class="label">联系馆长开通</div><b id="wechatValue"></b></div>
+        <button class="btn btn-pine" type="button" onclick="copyContact()"><svg class="icon icon-sm"><use href="#i-copy"/></svg>复制微信</button>
+      </div>
+      <div class="divider"></div>
+      <div class="activate-box">
+        <h3>已支付？输入馆长发放的开通码</h3>
+        <p class="note">开通码仅限本机使用一次；换设备后请重新联系馆长。</p>
+        <div class="activate-form" id="activateForm">
+          <input id="activationCode" type="text" autocomplete="off" placeholder="请输入开通码" aria-label="开通码">
+          <button class="btn btn-gold" type="button" onclick="activateMember()">立即解锁</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 资料预览弹窗 -->
+<div class="overlay" id="previewOverlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head"><h3 id="previewTitle">资料预览</h3><button class="close-btn" type="button" onclick="closeOverlay('previewOverlay')"><svg class="icon icon-sm"><use href="#i-close"/></svg></button></div>
+    <div class="modal-body">
+      <div class="preview-head">
+        <span class="cat-chip" id="previewCategory"></span>
+        <span class="preview-code" id="previewCode"></span>
+      </div>
+      <div class="doc-box" id="previewBody"></div>
+      <div class="preview-actions">
+        <button class="btn btn-ghost" type="button" onclick="copyPreview()"><svg class="icon icon-sm"><use href="#i-copy"/></svg>复制内容</button>
+        <button class="btn btn-pine" type="button" id="previewDownloadBtn" onclick="downloadCurrent()"><svg class="icon icon-sm"><use href="#i-download"/></svg>下载完整文件</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 文档编辑弹窗（馆长/管理员专用） -->
+<div class="overlay" id="docEditOverlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head"><h3 id="docEditTitle">新增文档</h3><button class="close-btn" type="button" onclick="closeOverlay('docEditOverlay')"><svg class="icon icon-sm"><use href="#i-close"/></svg></button></div>
+    <div class="modal-body">
+      <div class="field"><label>资料编号 code</label><input id="docCode" type="text" placeholder="例如 MY-001"></div>
+      <div class="field"><label>资料标题 *</label><input id="docTitle" type="text" placeholder="请输入资料标题"></div>
+      <div class="field-row">
+        <div class="field"><label>分类</label><select id="docCategory">
+          <option>AI工具实操馆</option><option>副业项目拆解馆</option><option>自媒体写作馆</option><option>考证学习馆</option><option>模板素材馆</option><option>9.9学习资料</option><option>馆长手记</option><option>免费公开课</option>
+        </select></div>
+        <div class="field"><label>权限</label><select id="docAccess"><option value="member">会员专属</option><option value="basic">9.9学习包</option><option value="free">免费公开</option></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>更新日期</label><input id="docUpdate" type="text" placeholder="2026-09-05"></div>
+        <div class="field"><label>预览分钟</label><input id="docMinutes" type="number" value="5" min="1"></div>
+      </div>
+      <div class="field"><label>资料简介 *</label><textarea id="docDesc" placeholder="写给学员看的简介"></textarea></div>
+      <div class="field"><label>标签（逗号分隔）</label><input id="docTags" type="text" placeholder="AI,模板"></div>
+      <div class="field"><label>文件名（逗号分隔）</label><input id="docFiles" type="text" placeholder="我的资料.pdf"></div>
+      <div class="field"><label>真实文件链接（已上传 files/ 后可留空）</label><input id="docFileUrl" type="text" placeholder="files/我的资料.pdf"></div>
+      <div class="field"><label>在线预览正文（会员可读）</label><textarea id="docFullText" placeholder="预览区显示的内容"></textarea></div>
+      <div class="field"><label>下载正文（没有真实文件时生成的 txt）</label><textarea id="docFileText" placeholder="可留空"></textarea></div>
+      <input id="editingDocId" type="hidden">
+      <button class="btn btn-pine btn-block" type="button" onclick="saveDocForm()">保存文档</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+/* =========================================================
+   馆长配置区：以后你自己维护时，只需要修改这一块
+   - curatorPass：馆长登录密码，必须改成只有你知道的密码
+   - codeSeed：生成每日开通码的种子，上线前请改成
+     一段只有你自己知道的随机字符串
+   页面每天会根据 codeSeed + 日期自动生成当日开通码，
+   开通码只会在“馆长工作台”里显示，管理员和学员都看不到。
+   - wechatId：学员复制联系你的微信号
+   - curatorName / curatorTitle / curatorIntro：
+     首页馆长介绍，改成你的称呼和介绍
+   - curatorMessage：首页“馆长寄语”
+   - announceTitle / announceText：首页更新公告
+========================================================= */
+var LIB_CONFIG = {
+  curatorPass: "AI-CURATOR-888",
+  codeSeed: "AI-LIBRARY-CURATOR-2026-CHANGE-ME",
+  price: "¥99",
+  priceNote: "一次性开通 · 永久会员",
+  wechatId: "AI_library_curator",
+  curatorName: "图书馆馆长",
+  curatorTitle: "AI资料图书馆 · 主理人",
+  curatorIntro: "长期研究知识付费、AI 工具与副业实操，负责本馆全部资料的选品、整理、校对与更新。我的原则很简单：只收藏能直接使用、持续更新、不靠夸大收入骗人的资料。",
+  curatorMessage: "先看公开区，再决定要不要成为会员。付费买到的不是一堆文件，而是“更新过的版本 + 能看懂的使用说明 + 长期可回看的入口”。",
+  announceTitle: "本周资料更新完成",
+  announceText: "《小红书虚拟资料 0-1 实操手册》已更新至 V2.1，新增 2026 年平台规则避坑与自动发货配置。会员可直接进入“会员中心”查看更新日志并重新下载。",
+  announceDate: "2026-09-05 21:00",
+  updateDate: "2026-09-05"
+};
+
+var LS_KEY = "ai-library-member-v1";
+var BASIC_KEY = "ai-library-basic9-v1";
+var SESSION_KEY = "ai-library-session-v1";
+var ADMIN_KEY = "ai-library-admins-v1";
+var DATA_KEY = "ai-library-docs-v1";
+var CURRENT_FILTER = "all";
+var CURRENT_ITEM = null;
+var currentView = "home";
+var state = { member: false, memberId: "", activatedAt: "", basic9: false, basic9Date: "" };
+var session = loadSession();
+var adminAccounts = loadAdmins();
+
+var CATEGORY_META = {
+  "AI工具实操馆": { color: "#1e5a4b", bg: "#dce9e2" },
+  "副业项目拆解馆": { color: "#7c4458", bg: "#f1e3e8" },
+  "自媒体写作馆": { color: "#8a6526", bg: "#f2e7cf" },
+  "考证学习馆": { color: "#315d76", bg: "#dde9f0" },
+  "模板素材馆": { color: "#5d5b84", bg: "#e7e6f2" },
+  "馆长手记": { color: "#7c4458", bg: "#f1e3e8" },
+  "副业诊断": { color: "#8a6526", bg: "#f2e7cf" },
+  "免费公开课": { color: "#1e5a4b", bg: "#dce9e2" },
+  "9.9学习资料": { color: "#7a3e21", bg: "#f5e2d4" }
+};
+
+/* 资源数据：access = free 公开可预览；member 仅会员解锁。
+   内嵌正文是可直接预览/下载的真实示例文件。
+   接入你自己的 PDF/Word/PPT 时：
+   1. 把文件上传到 GitHub 仓库的 files/ 文件夹；
+   2. 在对应资源对象里加一行
+      fileUrl: "files/你的文件名.pdf"。
+   下载按钮会自动优先下载真实文件。 */
+var RESOURCES = [
+  {
+    id: "pub-1", code: "PUB-001", access: "free", category: "馆长手记", update: "2026-08-28",
+    title: "馆长序言 · 馆藏使用手册",
+    desc: "讲解本馆分类逻辑、更新节奏、阅读顺序与下载规范，第一次进入先读这一册。",
+    tags: ["新手必读", "使用说明"], minutes: 3, files: ["PUB-001 使用手册.txt"],
+    excerpt: "本馆资料分为五类：AI 工具实操、副业项目拆解、自媒体写作、考证学习、模板素材。\n\n阅读顺序建议：\n1. 先看本册使用说明；\n2. 再选一个最接近你目标的馆；\n3. 下载后按文件内的《使用顺序》执行；\n4. 每周日晚查看更新公告，重新下载已更新版本。\n\n本馆不承诺“躺着月入过万”，只承诺：目录真实、版本明确、说明完整、资料可下载。",
+    fileText: "AI资料图书馆 · 馆藏使用手册（公开版）\n\n一、本馆定位\n不卖情绪，不卖夸大收入截图，只做经过筛选、编号、持续维护的实用资料。\n\n二、馆藏分类\nAI工具实操馆 / 副业项目拆解馆 / 自媒体写作馆 / 考证学习馆 / 模板素材馆\n\n三、使用顺序\n1. 通读本手册；\n2. 选择当前目标对应的馆；\n3. 下载后先看文件内“如何用”；\n4. 每周末回来检查更新。\n\n四、会员规则\n会员拥有本设备永久预览与下载权限。资料仅供个人学习，不得二次倒卖。"
+  },
+  {
+    id: "pub-2", code: "PUB-002", access: "free", category: "副业诊断", update: "2026-08-30",
+    title: "AI 副业方向自检清单",
+    desc: "用 10 个问题判断哪个副业方向更适合你，避免看到什么火就做什么。",
+    tags: ["自检", "方向"], minutes: 5, files: ["PUB-002 方向自检清单.txt"],
+    excerpt: "副业自检的 5 个关键问题：\n\n1. 我每天能稳定投入多少分钟？\n2. 我能接受多久没有收入？\n3. 我是更愿意做内容、做服务，还是做产品？\n4. 我有哪项别人需要、且愿意付费的技能或资源？\n5. 如果 30 天没有结果，我还愿意继续打磨吗？\n\n选副业不是选“最暴利”，而是选“我愿意重复做的动作 + 市场真实需要的结果”。",
+    fileText: "AI副业方向自检清单（免费片段）\n\n请诚实回答：\n1. 每天可投入时间：30分钟以内 / 1-2小时 / 3小时以上？\n2. 启动资金：0元 / 100元以内 / 500元以上？\n3. 你的优势更接近：资料整理、写作表达、服务沟通、技术工具？\n4. 你希望做成：现金流副业 / 长期资产 / 备考之外的补充收入？\n5. 你最容易放弃的节点是什么？\n\n判断标准：选择你能连续做 90 天且不会内耗的方向。"
+  },
+  {
+    id: "pub-3", code: "PUB-003", access: "free", category: "免费公开课", update: "2026-09-02",
+    title: "免费公开课：从 0 到 1 做虚拟资料店铺",
+    desc: "公开课第 1 讲免费试读：平台选择、资料来源、交付链路与新手禁区。",
+    tags: ["虚拟资料", "公开课"], minutes: 8, files: ["PUB-003 公开课试读.txt"],
+    excerpt: "虚拟资料生意的本质不是“卖文件”，而是卖三样东西：\n1. 筛选与整理的时间；\n2. 持续更新的确定性；\n3. 让买家能用起来的使用说明。\n\n新手最容易踩的四个坑：\n· 把网上免费资源直接打包卖，忽略版权与平台规则；\n· 只上架不更新，链接过期后售后爆发；\n· 资料堆到 100G，买家根本不知道从哪里看；\n· 用“月入过万”截图引流，最终被投诉。\n\n完整版 8 讲在会员馆藏《副业项目拆解馆》内，会员可预览并下载。",
+    fileText: "AI资料图书馆 · 免费公开课：从0到1做虚拟资料店铺（第1讲）\n\n一、最小可行模型\n选一个明确场景 -> 整理 10 份真正有用的资料 -> 配使用说明 -> 持续更新。\n\n二、不建议做\n不做盗版课转卖；不做夸大收入承诺；不把资料藏在层层网盘里。\n\n三、本馆的做法\n每份资料都有版本号和更新日志。买家可回看历史版本，无需担心买到旧版。"
+  },
+  {
+    id: "pub-4", code: "PUB-004", access: "free", category: "AI工具实操馆", update: "2026-09-04",
+    title: "AI 工具入门认知地图",
+    desc: "新手先看这一份：ChatGPT、AI绘画、AI办公分别适合解决什么问题，分别从哪里开始。",
+    tags: ["AI入门", "免费"], minutes: 6, files: ["PUB-004 AI工具认知地图.txt"],
+    fullText: "AI工具认知地图（免费完整版）\n\n一、写作用 AI：ChatGPT/DeepSeek 等，解决标题、正文、改写、翻译、会议纪要。\n二、作图用 AI：Midjourney/即梦/可灵等，解决封面、配图、电商素材。\n三、办公用 AI：AI PPT、表格公式、文档摘要、合同摘要。\n四、副业用 AI：批量整理资料、生成模板、写小红书笔记。\n\n新手第一步：不要一次学十个工具，只选一个“你本周就要用”的场景。",
+    excerpt: "新手建议只学一个场景：把 AI 当“秘书”而不是“老师”。先用它完成本周的一个真实任务。",
+    fileText: "AI工具入门认知地图\n\n1. 写作类：适合做内容的人\n- ChatGPT、Kimi、DeepSeek、豆包\n- 主要用途：标题、正文、改写、翻译、会议纪要\n\n2. 作图类：适合做视觉的人\n- Midjourney、即梦、可灵、Stable Diffusion\n- 主要用途：封面、配图、海报、电商素材\n\n3. 办公类：适合职场人\n- AI PPT、WPS AI、飞书智能伙伴\n- 主要用途：周报、汇报、表格、文档摘要\n\n4. 学习顺序建议\n- 只学一个本周能用的场景；\n- 同一任务连续用 5 次；\n- 把最佳回答存成自己的模板。"
+  },
+  {
+    id: "pub-5", code: "PUB-005", access: "free", category: "自媒体写作馆", update: "2026-09-03",
+    title: "小红书笔记发布自查清单",
+    desc: "发布前逐项检查：封面、标题、正文结构、关键词、引导与违规词。",
+    tags: ["小红书", "自查"], minutes: 5, files: ["PUB-005 笔记发布自查清单.txt"],
+    fullText: "小红书笔记发布自查清单（免费完整版）\n\n发布前检查：\n1. 封面 3 秒能否看懂主题？\n2. 标题是否包含具体人群/结果/数字？\n3. 正文是否用空行分段，方便手机阅读？\n4. 是否埋了用户会搜索的关键词？\n5. 有无“最”“第一”“保证赚钱”等违规表达？\n6. 结尾是否给了明确下一步？\n\n通过后再发布，数据会更稳。",
+    excerpt: "每次发布前过一遍：封面能否 3 秒看懂、正文是否分段、有没有违规词、结尾有没有下一步。",
+    fileText: "小红书笔记发布自查清单\n\n一、封面检查\n- 3秒能否看懂主题？\n- 文字是否大于 5 个关键词？\n- 图片是否模糊或拉伸？\n\n二、标题检查\n- 有具体人群/场景/结果？\n- 有没有吸引点击但不过度承诺？\n\n三、正文检查\n- 每 2-3 行一个空行；\n- 关键词自然出现 2-3 次；\n- 不使用“绝对化用语”。\n\n四、互动检查\n- 结尾是否引导收藏或评论？"
+  },
+  {
+    id: "pub-6", code: "PUB-006", access: "free", category: "模板素材馆", update: "2026-08-31",
+    title: "求职简历 STAR 写法速查",
+    desc: "把经历写成“情境-任务-行动-结果”的免费速查卡，附 8 个可直接替换的句式。",
+    tags: ["简历", "求职"], minutes: 6, files: ["PUB-006 STAR简历速查.txt"],
+    fullText: "STAR 写法速查（免费完整版）\n\nS 情境：当时面对什么任务/背景？\nT 任务：你被要求或主动承担什么？\nA 行动：你具体做了什么？用了什么方法/工具？\nR 结果：带来什么可量化的结果？\n\n公式：动词 + 对象 + 方法 + 量化结果。\n\n例如：负责公众号（对象）→ 通过选题拆解与数据复盘（方法）→ 3 个月阅读量提升 120%（结果）。",
+    excerpt: "简历不是写“我做了什么”，而是写“我用了什么方法解决了什么问题，带来了什么结果”。",
+    fileText: "求职简历 STAR 写法速查\n\nS（情境）：在什么背景/项目/任务中？\nT（任务）：我负责或主动承担什么？\nA（行动）：我具体做了哪些动作？\nR（结果）：带来了什么可量化的变化？\n\n替换句式：\n1. 在【情境】中，负责【任务】；\n2. 通过【方法/工具】，完成【行动】；\n3. 最终【量化结果】。\n\n避免只写岗位职责，每段经历至少要有一个结果。"
+  },
+  {
+    id: "pub-7", code: "PUB-007", access: "free", category: "自媒体写作馆", update: "2026-08-29",
+    title: "公众号写作 30 个选题清单",
+    desc: "从人群、场景、方法、工具、复盘五个方向快速找到可写选题。",
+    tags: ["公众号", "选题"], minutes: 7, files: ["PUB-007 公众号选题清单.txt"],
+    fullText: "公众号写作 30 个选题方向（节选）\n\n人群类：给刚入行的新人、给时间少的上班族、给想做副业的宝妈。\n场景类：开工第一周怎么进入状态、汇报前怎么准备、深夜改稿怎么自救。\n方法类：一篇干货文如何拆 3 个步骤、如何建立素材库、如何用 AI 辅助不丢个人风格。\n\n选题标准：读者看完能少踩一个坑，或能直接执行一个动作。",
+    excerpt: "好选题不是“我想写什么”，而是“我的读者今天卡在哪个具体问题上”。",
+    fileText: "公众号写作 30 个选题方向\n\n一、人群选题\n1. 新人入门最常踩的 5 个坑\n2. 副业新手最容易忽略的成本\n3. 时间少的人怎么保持更新\n\n二、场景选题\n4. 工作汇报前一天怎么准备\n5. 周日下午做什么能缓解焦虑\n6. 第一次接合作怎么谈\n\n三、方法选题\n7. 3 步拆解一篇爆文\n8. 如何把日常经历变成选题\n9. 怎么建立自己的素材库\n\n使用方式：每天从清单里挑一个，结合自己的真实经历写。"
+  },
+  {
+    id: "pub-8", code: "PUB-008", access: "free", category: "副业项目拆解馆", update: "2026-08-27",
+    title: "虚拟资料选品自检表",
+    desc: "上架前用 6 个问题判断这份资料能不能卖：需求、稀缺、版权、交付、更新、售后。",
+    tags: ["选品", "虚拟资料"], minutes: 6, files: ["PUB-008 选品自检表.txt"],
+    fullText: "虚拟资料选品自检表（免费完整版）\n\n1. 是否有人正在搜这类问题？\n2. 同行的差评集中在什么？\n3. 我能否提供比免费资源更好的整理和使用说明？\n4. 内容是否有版权风险？\n5. 交付后买家能否直接使用？\n6. 我是否有能力持续更新？\n\n六项都通过，才适合放进会员馆藏。",
+    excerpt: "不要问“什么资料最暴利”，要问“这份资料是否经得起需求、版权、交付、更新四项检查”。",
+    fileText: "虚拟资料选品自检表\n\n□ 有真实需求：去搜索/电商平台看有没有人搜、有人买。\n□ 有整理价值：不是免费资源一键打包，而是有筛选、目录和使用说明。\n□ 版权清晰：不卖盗版课、不搬运他人付费内容。\n□ 交付可用：买家拿到后知道怎么用、能马上用。\n□ 可持续更新：考证类按考期更新，规则类按平台政策更新。\n□ 售后可行：链接失效有补链入口，问题有回应。"
+  },
+  {
+    id: "b9-1", code: "B9-101", access: "basic", category: "9.9学习资料", update: "2026-09-04",
+    title: "AI 写作从 0 到 1 入门",
+    desc: "用 AI 完成标题、正文、改写、翻译的小白教程，附可直接套用的写作提示词。",
+    tags: ["AI写作", "9.9包"], minutes: 15, files: ["B9-101 AI写作入门.txt"],
+    fullText: "B9-101 AI写作入门（节选）\n\n第一步：把任务说具体。不要写“帮我写一篇文章”，要写“帮我把下面 500 字改成适合公众号的干货文，开头要有冲突”。\n第二步：只让 AI 做一件事。\n第三步：把结果当草稿，加入自己的真实例子。\n\n完整版含 20 个写作提示词与 3 篇逐字稿。",
+    fileText: "9.9 学习资料包 · AI写作入门\n\n一、入门心法\n1. 写清楚角色：你是一名公众号编辑；\n2. 写清楚任务：帮我写/改/删/翻译；\n3. 写清楚要求：字数、语气、是否加例子；\n4. 写清楚格式：用列表/段落/小标题。\n\n二、三个常用模板\n1. 标题生成：给我 10 个标题，要求有冲突、有数字、不夸大；\n2. 段落扩写：把这段扩成 300 字，加入具体操作；\n3. 口语化改写：把这段话改成手机上读起来不累的表达。"
+  },
+  {
+    id: "b9-2", code: "B9-102", access: "basic", category: "9.9学习资料", update: "2026-09-03",
+    title: "小红书新手起号 7 天计划",
+    desc: "每天只做一件具体事，7 天完成定位、选题、封面、笔记与复盘闭环。",
+    tags: ["小红书", "9.9包"], minutes: 18, files: ["B9-102 小红书起号7天.txt"],
+    fullText: "B9-102 小红书新手起号 7 天计划（节选）\n\nDay1 定人设：你只帮助哪一类人解决哪一类问题。\nDay2 找参考：收藏 10 篇相关领域笔记，拆开头和结尾。\nDay3 定选题：写下 10 个具体问题。\nDay4 做封面：标题文字占画面三分之一。\nDay5 写正文：每两行一个空行。\nDay6 发布并检查关键词与违规词。\nDay7 复盘：收藏、点赞、评论分别说明什么问题。",
+    fileText: "9.9 学习资料包 · 小红书新手起号7天计划\n\n7天安排：\n第1天：只定一个细分方向；\n第2天：拆解10篇对标笔记；\n第3天：写出10个真实选题；\n第4天：完成3张封面；\n第5天：写完第一篇笔记；\n第6天：检查关键词、标签与违禁词；\n第7天：发布并记录数据。\n\n复盘指标：收藏率看内容价值，评论率看互动钩子，关注率看账号定位。"
+  },
+  {
+    id: "b9-3", code: "B9-103", access: "basic", category: "9.9学习资料", update: "2026-09-02",
+    title: "副业避坑指南 20 问",
+    desc: "20 个最常见的副业骗局与判断标准，先学会不亏钱再谈赚钱。",
+    tags: ["避坑", "9.9包"], minutes: 12, files: ["B9-103 副业避坑20问.txt"],
+    fullText: "B9-103 副业避坑指南（节选）\n\n高危信号：\n1. 先交钱再给项目；\n2. 承诺无风险月入过万；\n3. 让你拉人头才有收益；\n4. 不让看真实交付内容；\n5. 强调限时优惠制造焦虑。\n\n判断方法：先搜“平台+项目+骗局”，再看对方是否愿意展示真实过程。",
+    fileText: "9.9 学习资料包 · 副业避坑指南20问\n\n20问节选：\n1. 是否需要我先交钱？\n2. 承诺收益是否超过常识？\n3. 是否靠拉人头赚钱？\n4. 是否不让看合同/收据？\n5. 是否用“错过再等一年”催你付款？\n6. 是否盗用别人课程/资料？\n7. 是否让你刷单或虚假交易？\n8. 对方是否拒绝提供真实案例？\n\n一句话：任何副业，先用小成本验证流程，再决定是否放大。"
+  },
+  {
+    id: "b9-4", code: "B9-104", access: "basic", category: "9.9学习资料", update: "2026-08-30",
+    title: "公众号新手写作入门",
+    desc: "从定位、栏目规划到一篇 1000 字干货文的完整写作流程。",
+    tags: ["公众号", "9.9包"], minutes: 16, files: ["B9-104 公众号写作入门.txt"],
+    fullText: "B9-104 公众号新手写作入门（节选）\n\n定位公式：写给谁 + 解决什么问题 + 每周固定栏目。\n\n干货文结构：开头讲问题，正文给 3 个步骤，结尾给 1 个行动清单。\n\n更新建议：宁做每周一篇的稳定栏目，不做三天打鱼的全能号。",
+    fileText: "9.9 学习资料包 · 公众号新手写作入门\n\n一、定位\n具体人群 + 高频问题 + 固定栏目。\n\n二、文章结构\n开头：读者正遇到什么问题；\n正文：3-5 个可执行步骤；\n案例：一个真实例子；\n结尾：本周可以做的第一个动作。\n\n三、写作顺序\n先写行动清单，再写步骤，最后写开头，效率更高。"
+  },
+  {
+    id: "b9-5", code: "B9-105", access: "basic", category: "9.9学习资料", update: "2026-08-28",
+    title: "教资笔试速记手册（精简版）",
+    desc: "高频考点、易错概念与考前一周速记方法，适合时间紧的备考者。",
+    tags: ["教资", "9.9包"], minutes: 22, files: ["B9-105 教资笔试速记.txt"],
+    fullText: "B9-105 教资笔试速记手册（节选）\n\n综合素质：职业理念考“三观”，职业道德考教师职业行为规范，法律题以权利与义务为主。\n教育知识与能力：重点背课程、教学原则、德育方法、学习理论。\n\n速记方法：每天 20 分钟，只背关键词，睡前用回忆法检测。",
+    fileText: "9.9 学习资料包 · 教资笔试速记手册\n\n建议复习顺序：\n1. 先做 2 套真题，标记错题对应的模块；\n2. 按模块集中背诵高频考点；\n3. 考前只背自己整理的错题卡。\n\n易错提醒：不要把“教育目的”和“教育方针”混淆；注意“教学原则”与“德育原则”的区别。"
+  },
+  {
+    id: "b9-6", code: "B9-106", access: "basic", category: "9.9学习资料", update: "2026-08-26",
+    title: "求职简历与面试准备包",
+    desc: "简历结构、STAR 表达、高频面试问答和自我介绍的组合资料。",
+    tags: ["求职", "9.9包"], minutes: 15, files: ["B9-106 求职准备包.txt"],
+    fullText: "B9-106 求职准备包（节选）\n\n简历四段：基本信息 + 核心经历 + 技能证书 + 项目成果。\n面试自我介绍公式：我是谁 + 我能解决什么问题 + 最近一个成果 + 为什么匹配。\n\n高频问题：你最大的缺点？答“正在改进的与岗位弱相关的点”，并给出改进证据。",
+    fileText: "9.9 学习资料包 · 求职简历与面试准备\n\n简历写法：\n- 经历按成果写，不写岗位职责；\n- 动词+对象+方法+结果；\n- 一页以内。\n\n面试准备：\n1. 自我介绍 60 秒和 3 分钟两版；\n2. 准备 3 个自己的成果故事；\n3. 回答缺点时给改进证据；\n4. 最后提问环节问岗位与团队。"
+  },
+  {
+    id: "b9-7", code: "B9-107", access: "basic", category: "9.9学习资料", update: "2026-08-24",
+    title: "AI + 办公效率模板",
+    desc: "会议纪要、周报、汇报、邮件四大场景的高效模板，手机也能直接用。",
+    tags: ["办公", "9.9包"], minutes: 12, files: ["B9-107 AI办公模板.txt"],
+    fullText: "B9-107 AI+办公效率模板（节选）\n\n会议纪要：结论 + 行动项 + 负责人 + 截止时间。\n周报：目标 + 完成 + 数据 + 卡点 + 下周计划。\n邮件：主题写明目的，正文先给结论，再列背景与请求。",
+    fileText: "9.9 学习资料包 · AI+办公效率模板\n\n1. 会议纪要模板：本次结论；行动项；负责人；截止时间。\n2. 周报模板：本周目标是否完成；关键数据；卡点；下周计划。\n3. 汇报模板：先说结论；再说证据；最后给下一步。\n4. 邮件模板：主题=目的；正文=结论+背景+请求。\n\n配合 AI：把原始内容丢给 AI，让它按以上结构输出初稿。"
+  },
+  {
+    id: "b9-8", code: "B9-108", access: "basic", category: "9.9学习资料", update: "2026-08-22",
+    title: "新手资料整理法",
+    desc: "用“少而有用”的文件夹体系整理网盘，让资料能找得到、用得上。",
+    tags: ["整理", "9.9包"], minutes: 10, files: ["B9-108 新手资料整理法.txt"],
+    fullText: "B9-108 新手资料整理法（节选）\n\n文件夹规则：按“用途”建文件夹，不按“来源”建。\n每个资料包内放 3 个文件：总目录、正文/模板、更新日志。\n每周日清理一次“暂存区”，把没用的资料直接删除。",
+    fileText: "9.9 学习资料包 · 新手资料整理法\n\n一、目录结构\n01-正在使用 / 02-暂存待整理 / 03-长期参考。\n\n二、单个资料包结构\n- 00-总目录.txt；\n- 正文或模板；\n- 更新日志.txt。\n\n三、整理原则\n1. 文件夹不超过三层；\n2. 文件名含版本日期；\n3. 只保留本周会用到的内容，其余放参考区；\n4. 每份资料能在一分钟内找到。"
+  },
+  {
+    id: "ai-1", code: "AI-101", access: "member", category: "AI工具实操馆", update: "2026-09-05",
+    title: "ChatGPT 高阶提示词库 200+",
+    desc: "覆盖文案、拆书、办公、营销、编程等 20 个场景的高阶提示词，会员可在线预览与完整下载。",
+    tags: ["ChatGPT", "提示词"], minutes: 12, files: ["AI-101 高阶提示词库.txt"],
+    fullText: "AI-101 高阶提示词库（节选）\n\n一、写作场景\n1. 公众号标题：你是资深编辑，请基于以下主题给我 20 个公众号标题，要求：有冲突、有具体数字、不夸大。\n2. 小红书正文：请按“痛点-做法-结果-引导关注”结构输出 500 字。\n3. 逐字稿：把下面 2000 字压缩成 3 分钟口播稿。\n\n二、办公场景\n4. 会议纪要：请将以下会议内容整理为“结论/行动项/负责人/截止时间”四栏。\n5. 复盘模板：按目标、结果、差距、原因、下一步输出周报。\n\n三、副业场景\n6. 选品分析：请列出做虚拟资料时，用户愿意付费的 30 个细分需求。\n7. 朋友圈销售文案：避免虚假承诺，写出 3 条有证据感的成交文案。",
+    fileText: "【会员文件】AI-101 ChatGPT高阶提示词库\n\n完整版包含：写作、办公、副业、教育、编程等 20 个场景，每类 10+ 条可直接复制使用的提示词。\n\n节选示例：\n- 小红书种草文结构提示词\n- 公众号标题批量生成提示词\n- 客户答疑标准话术提示词\n- 简历优化提示词\n\n更新说明：2026-09-05 新增短视频脚本场景 15 条。"
+  },
+  {
+    id: "ai-2", code: "AI-102", access: "member", category: "AI工具实操馆", update: "2026-08-31",
+    title: "AI 绘画工作流手册",
+    desc: "从需求确认、画面拆解到生成与商用检查的完整工作流，附提示词结构模板。",
+    tags: ["AI绘画", "工作流"], minutes: 10, files: ["AI-102 AI绘画工作流手册.txt"],
+    fullText: "AI-102 AI绘画工作流手册（节选）\n\n标准工作流：\n1. 用途定义：封面图/头像/素材图？平台与尺寸是什么？\n2. 画面拆解：主体 + 场景 + 风格 + 光线 + 构图 + 负面词。\n3. 生成：先定主体再调风格，一次只改一个变量。\n4. 检查：文字是否乱码？手部/边缘是否异常？\n5. 商用检查：确认素材授权与平台规则后再使用。\n\n提示词结构：\n[主体] + [动作/状态] + [环境] + [风格] + [镜头] + [光线] + [画质词]",
+    fileText: "【会员文件】AI-102 AI绘画工作流手册\n\n完整版包含：人物/电商/排版/自媒体封面四大类工作流、可复用提示词模板、商用避坑清单。\n\n封面图快速公式：\n主体 + 情绪状态 + 干净背景 + 高级色调 + 高清细节。\n\n商用检查表：\n1. 是否包含真实人物肖像？\n2. 是否模仿特定在世艺术家风格？\n3. 平台是否要求标注 AI 生成？\n4. 交付前是否已自检细节？"
+  },
+  {
+    id: "ai-3", code: "AI-103", access: "member", category: "AI工具实操馆", update: "2026-09-03",
+    title: "AI 办公自动化模板 30 份",
+    desc: "会议纪要、周报月报、合同摘要、资料整理等 30 份可直接套用的自动化模板。",
+    tags: ["办公", "自动化"], minutes: 15, files: ["AI-103 办公自动化模板.txt"],
+    fullText: "AI-103 AI办公自动化模板（节选）\n\n模板 1：会议纪要\n输入会议原稿，输出：结论摘要 / 行动项 / 负责人 / 截止时间 / 风险点。\n\n模板 2：资料文件重命名\n按“编号-分类-标题-版本日期”批量整理网盘文件夹。\n\n模板 3：合同要点摘要\n提取金额、期限、违约责任、解约条件、可协商项。\n\n模板 4：周报生成\n基于本周完成事项自动生成“成果 + 数据 + 下周计划”三段式周报。",
+    fileText: "【会员文件】AI-103 AI办公自动化模板\n\n完整版共 30 份模板，分为会议、汇报、合同、资料整理、邮件沟通五大类。\n\n每份模板均含：\n1. 输入要求；\n2. 输出结构；\n3. 可直接复制的提示词；\n4. 常见错误规避。"
+  },
+  {
+    id: "side-1", code: "SIDE-201", access: "member", category: "副业项目拆解馆", update: "2026-09-05",
+    title: "小红书虚拟资料 0-1 实操手册 V2.1",
+    desc: "从账号、选品、上架、预览图到自动发货的完整 SOP，重点加入 2026 平台规则避坑。",
+    tags: ["小红书", "虚拟资料"], minutes: 20, files: ["SIDE-201 小红书0-1实操手册.txt"],
+    fullText: "SIDE-201 小红书虚拟资料 0-1 实操手册（节选）\n\n一、第一周只做四件事\n1. 定馆：只做一个明确人群，例如“幼师课件”“合同模板”“考研笔记”。\n2. 选品：去公开平台看 10 个同行，记录标题、销量、价格、差评。\n3. 建清单：整理出 10 份真正能帮到用户的资料，不堆数量。\n4. 写说明：给每份资料写清楚适用人群、内容目录、使用顺序。\n\n二、自动发货前的检查\n- 文件命名是否规范？\n- 是否包含更新日志？\n- 链接权限是否允许他人下载？\n- 是否已设置售后话术与补链入口？\n\n三、规则红线\n不卖盗版课；不使用虚假收益截图；遵守平台虚拟商品/数字商品类目要求；AI 内容按平台要求标识。",
+    fileText: "【会员文件】SIDE-201 小红书虚拟资料0-1实操手册 V2.1\n\n完整手册包含：\n1. 账号与店铺开通检查表；\n2. 10 个已验证选品方向；\n3. 笔记封面与标题结构；\n4. 自动发货配置步骤；\n5. 售后/补链/差评处理话术；\n6. 2026 平台规则避坑清单。\n\nV2.1 更新内容：新增数字商品类目说明、AI生成内容标识要求。"
+  },
+  {
+    id: "side-2", code: "SIDE-202", access: "member", category: "副业项目拆解馆", update: "2026-08-25",
+    title: "闲鱼自动发货全流程 SOP",
+    desc: "适合零基础起步的自动发货配置、商品文案、售后与防违规完整流程。",
+    tags: ["闲鱼", "SOP"], minutes: 15, files: ["SIDE-202 闲鱼自动发货SOP.txt"],
+    fullText: "SIDE-202 闲鱼自动发货全流程 SOP（节选）\n\n流程：养号 -> 选品 -> 上架 -> 自动发货 -> 售后检查 -> 周复盘。\n\n自动发货四要素：\n1. 网盘链接与提取码分离存放；\n2. 自动回复包含“使用说明 + 更新入口”；\n3. 对每个商品设置固定话术，避免客服遗漏；\n4. 每日检查异常订单与退款原因。\n\n差评高发场景预防：\n- 链接失效前主动通知已购用户；\n- 资料更新后在商品页同步版本号；\n- 不做夸大收益承诺，避免“收货后失望”。",
+    fileText: "【会员文件】SIDE-202 闲鱼自动发货全流程SOP\n\n完整版包含：账号准备、货源整理、自动发货工具配置、常见问题话术、违规风险清单。\n\n关键检查点：\n1. 文件是否可直接打开；\n2. 链接是否长期有效；\n3. 买家是否知道下一步做什么；\n4. 售后是否有人回应。"
+  },
+  {
+    id: "side-3", code: "SIDE-203", access: "member", category: "副业项目拆解馆", update: "2026-08-20",
+    title: "公众号流量主入门手册",
+    desc: "定位、选题、文章结构、涨粉与流量主开通路径的入门实操手册。",
+    tags: ["公众号", "流量主"], minutes: 18, files: ["SIDE-203 公众号流量主手册.txt"],
+    fullText: "SIDE-203 公众号流量主入门手册（节选）\n\n定位公式：\n具体人群 + 具体问题 + 可重复的内容形式。\n\n内容日历：\n周一案例拆解，周三方法干货，周五工具清单，周日馆藏更新。\n\n流量主开通前准备：\n1. 保持原创更新；\n2. 积累稳定阅读；\n3. 不做诱导分享；\n4. 注意标题规范与广告位体验。",
+    fileText: "【会员文件】SIDE-203 公众号流量主入门手册\n\n完整版包含：账号定位、30 个选题方向、爆文开头结构、涨粉渠道、流量主开通流程。\n\n核心认知：公众号不是“追热点大赛”，而是“固定人群的长期资料库”。"
+  },
+  {
+    id: "write-1", code: "WRITE-301", access: "member", category: "自媒体写作馆", update: "2026-09-01",
+    title: "小红书爆款标题 100 例",
+    desc: "按人群、数字、结果、悬念、避坑五类整理的标题模板，可直接改写套用。",
+    tags: ["小红书", "标题"], minutes: 8, files: ["WRITE-301 小红书爆款标题100例.txt"],
+    fullText: "WRITE-301 小红书爆款标题 100 例（节选）\n\n类型一：给结果\n- “普通上班族，我用这 3 个模板写完了全年周报”\n- “考教资前 15 天，我只背这 6 页”\n\n类型二：给人群\n- “新手妈妈也能做的资料整理法”\n- “文科生第一次用 AI 做表格，从哪开始”\n\n类型三：给反常识\n- “资料不是越多越好，我删到 10 份后反而出单了”\n\n改写规则：保留具体结果，删除虚假承诺，加上真实限制。",
+    fileText: "【会员文件】WRITE-301 小红书爆款标题100例\n\n完整版含 100 例与改写公式。\n\n基础公式：\n目标人群 + 动作/场景 + 具体结果 + 信任证据。\n\n避免：\n“月入十万”“0基础几天爆单”等无法兑现的夸大表达。"
+  },
+  {
+    id: "write-2", code: "WRITE-302", access: "member", category: "自媒体写作馆", update: "2026-08-18",
+    title: "公众号写作框架模板 12 套",
+    desc: "干货文、拆解文、观点文、清单文等 12 套写作框架与开头模板。",
+    tags: ["公众号", "框架"], minutes: 10, files: ["WRITE-302 公众号写作框架模板.txt"],
+    fullText: "WRITE-302 公众号写作框架模板（节选）\n\n干货文框架：\n开头（这个问题谁遇到过）-> 拆解（3-5 个步骤）-> 案例 -> 常见错误 -> 行动清单。\n\n拆解文框架：\n现象 -> 数据/证据 -> 底层原因 -> 可复制方法 -> 你的第一步。\n\n观点文框架：\n反常识结论 -> 定义 -> 正反论证 -> 边界 -> 留下开放问题。",
+    fileText: "【会员文件】WRITE-302 公众号写作框架模板\n\n完整版含 12 套框架、每个框架的开头与结尾模板、可填空草稿。\n\n使用方法：先选框架，再填素材，最后删掉与主题无关的段落。"
+  },
+  {
+    id: "write-3", code: "WRITE-303", access: "member", category: "自媒体写作馆", update: "2026-08-22",
+    title: "知识付费朋友圈文案库",
+    desc: "适合资料馆/课程/训练营销售的高信任文案模板，避免硬广与夸大。",
+    tags: ["文案", "知识付费"], minutes: 6, files: ["WRITE-303 朋友圈文案库.txt"],
+    fullText: "WRITE-303 知识付费朋友圈文案库（节选）\n\n证据型文案结构：\n我做了什么 -> 过程中踩的坑 -> 现在的版本是什么 -> 你可以从哪里开始。\n\n更新型文案：\n今天更新了什么 -> 为什么更新 -> 已购学员去哪里重新下载。\n\n成交型文案注意：\n给出适用边界，明确不适合谁，展示真实目录而不是收入截图。",
+    fileText: "【会员文件】WRITE-303 知识付费朋友圈文案库\n\n完整版包含：开场自我介绍、日常价值、资料更新、学员反馈、成交临门一脚五类文案模板。\n\n核心原则：卖确定性和真实成果，不卖焦虑。"
+  },
+  {
+    id: "exam-1", code: "EXAM-401", access: "member", category: "考证学习馆", update: "2026-08-29",
+    title: "教资笔试高频考点笔记",
+    desc: "按科目整理高频考点、易错概念与考前速记框架。",
+    tags: ["教资", "笔记"], minutes: 25, files: ["EXAM-401 教资高频考点笔记.txt"],
+    fullText: "EXAM-401 教资笔试高频考点笔记（节选）\n\n综合素质：职业理念、职业道德、法律法规、文化素养、基本能力是核心模块。\n\n教育知识与能力：\n- 教育学重点：教育与社会发展、课程、教学、德育；\n- 心理学重点：学习理论、认知发展、学习动机。\n\n考前速记方法：\n按“概念 -> 代表人物 -> 关键词 -> 常考题型”四列整理。",
+    fileText: "【会员文件】EXAM-401 教资笔试高频考点笔记\n\n完整版包含：各科目章节思维导图、高频考点、易错辨析、考前一周速记表。\n\n提示：考试政策与官方大纲变化时，本册会随馆藏更新。"
+  },
+  {
+    id: "exam-2", code: "EXAM-402", access: "member", category: "考证学习馆", update: "2026-08-26",
+    title: "考研英语作文模板",
+    desc: "大小作文结构模板、高分句式与常见话题替换词库。",
+    tags: ["考研", "英语"], minutes: 20, files: ["EXAM-402 考研英语作文模板.txt"],
+    fullText: "EXAM-402 考研英语作文模板（节选）\n\n小作文结构：称呼 -> 背景/目的 -> 要点 1-3 -> 期望/感谢 -> 落款。\n\n大作文结构：\n首段描述图表并点明主题；中段分析原因/影响；尾段给评价或建议。\n\n提分关键：避免整篇背诵，用“框架 + 话题词库”现场组合。",
+    fileText: "【会员文件】EXAM-402 考研英语作文模板\n\n完整版包含：大小作文 8 套框架、高分替换句式、热点话题词库、考场时间分配表。"
+  },
+  {
+    id: "exam-3", code: "EXAM-403", access: "member", category: "考证学习馆", update: "2026-08-19",
+    title: "考公行测常识高频手册",
+    desc: "法律、时政、历史人文、科技生活等模块高频常识速记。",
+    tags: ["考公", "行测"], minutes: 22, files: ["EXAM-403 行测常识手册.txt"],
+    fullText: "EXAM-403 考公行测常识高频手册（节选）\n\n常识备考原则：先看近年真题的考点分布，再做高频模块速记，不盲目刷百科。\n\n高频模块：\n法律：宪法、民法典、行政法基础；\n历史：重要制度与标志性事件；\n时政：近一年重要会议与文件；\n科技：前沿科技名词与生活常识。\n\n速记建议：每天 20 分钟，按“读一遍 -> 只看关键词回忆 -> 睡前再过一遍”执行。",
+    fileText: "【会员文件】EXAM-403 考公行测常识高频手册\n\n完整版包含：模块高频清单、关键词速记表、近年真题考点分布、错题复盘模板。"
+  },
+  {
+    id: "tpl-1", code: "TPL-501", access: "member", category: "模板素材馆", update: "2026-08-27",
+    title: "简历模板 3 套（可直接编辑）",
+    desc: "应届生、职场跳槽、转行三种场景简历结构模板与写法提示。",
+    tags: ["简历", "模板"], minutes: 9, files: ["TPL-501 简历模板说明.txt"],
+    fullText: "TPL-501 简历模板（节选）\n\n结构总则：\n- 名字 + 目标岗位；\n- 用 3 条经历证明“我能完成目标岗位的什么工作”；\n- 每个经历写：场景/任务/动作/量化结果。\n\n应届生侧重：课程项目、实习、校园实践与可迁移技能。\n\n跳槽侧重：最近两份工作的核心成果与行业资源。\n\n转行侧重：把旧经验翻译成新岗位语言。",
+    fileText: "【会员文件】TPL-501 简历模板\n\n完整版含 3 套可直接编辑简历结构、经历描述公式、词汇替换表。\n\n动作公式：动词 + 对象 + 方法/工具 + 可量化结果。"
+  },
+  {
+    id: "tpl-2", code: "TPL-502", access: "member", category: "模板素材馆", update: "2026-08-16",
+    title: "合同协议常用模板",
+    desc: "服务合同、合作协议、保密协议等常用合同框架与填写注意事项。",
+    tags: ["合同", "协议"], minutes: 12, files: ["TPL-502 合同协议模板.txt"],
+    fullText: "TPL-502 合同协议模板（节选）\n\n任何合同都应明确：\n1. 双方主体与联系方式；\n2. 服务/交付内容；\n3. 金额、支付节点与发票；\n4. 验收标准与期限；\n5. 违约责任与争议解决。\n\n重要提示：模板用于起草参考，重大交易请咨询专业律师审核。",
+    fileText: "【会员文件】TPL-502 合同协议模板\n\n完整版包含：服务合同、合作协议、保密协议、兼职雇佣协议等框架。\n\n使用原则：填写前先列清交易事实，模板只负责把事实写清楚。"
+  },
+  {
+    id: "tpl-3", code: "TPL-503", access: "member", category: "模板素材馆", update: "2026-08-14",
+    title: "PPT 汇报结构模板",
+    desc: "周报、述职、方案汇报、项目复盘四类 PPT 的逻辑框架与页面清单。",
+    tags: ["PPT", "汇报"], minutes: 7, files: ["TPL-503 PPT汇报结构模板.txt"],
+    fullText: "TPL-503 PPT 汇报结构模板（节选）\n\n周报页序：本周目标 -> 完成情况 -> 数据 -> 卡点 -> 下周计划。\n\n述职页序：职责 -> 成果证据 -> 方法论 -> 成长 -> 明年计划。\n\n方案页序：背景 -> 目标 -> 方案 -> 资源 -> 风险 -> 下一步。\n\n页面原则：一页只讲一个结论，数据先说结论后给证据。",
+    fileText: "【会员文件】TPL-503 PPT汇报结构模板\n\n完整版包含：四种汇报的逐页清单、结论句模板、图表选用建议。"
+  }
+];
+
+var BUILTIN_RESOURCES = RESOURCES.slice();
+
+/* ============ 角色、每日开通码与本地资料库 ============ */
+function hashText(str){
+  var h = 0;
+  for (var i = 0; i < str.length; i++) {
+    h = ((h << 5) - h) + str.charCodeAt(i);
+    h |= 0;
+  }
+  return (h >>> 0).toString(16).padStart(8, "0").toUpperCase();
+}
+
+function dateKey(d){
+  function p(n){ return n < 10 ? "0" + n : n; }
+  return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+}
+
+function todayOpeningCode(){
+  var raw = String(LIB_CONFIG.codeSeed) + "|" + dateKey(new Date());
+  var h = hashText(raw);
+  return "AI-" + h.slice(0, 4) + "-" + h.slice(4, 8);
+}
+
+function basic9DailyCode(){
+  var raw = String(LIB_CONFIG.codeSeed) + "|9.9|" + dateKey(new Date());
+  var h = hashText(raw);
+  return "9Y-" + h.slice(0, 4) + "-" + h.slice(4, 8);
+}
+
+function hasBasicAccess(){
+  return isMember() || (state && state.basic9);
+}
+
+function readStore(key, fallback){
+  try {
+    var raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    return JSON.parse(raw);
+  } catch (e) {
+    return fallback;
+  }
+}
+
+function writeStore(key, value){
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* ignore */ }
+}
+
+function loadSession(){
+  var s = readStore(SESSION_KEY, null);
+  if (s && (s.role === "curator" || s.role === "admin")) {
+    return { role: s.role, name: s.name || "", time: s.time || "" };
+  }
+  return { role: "" };
+}
+
+function saveSession(){
+  writeStore(SESSION_KEY, session);
+}
+
+function logoutRole(){
+  session = { role: "" };
+  saveSession();
+  toast("已退出工作台");
+  renderWorkbench();
+}
+
+function loadAdmins(){
+  var list = readStore(ADMIN_KEY, []);
+  return Array.isArray(list) ? list : [];
+}
+
+function saveAdmins(){
+  writeStore(ADMIN_KEY, adminAccounts);
+}
+
+function loadDocs(){
+  var list = readStore(DATA_KEY, null);
+  if (Array.isArray(list) && list.length) {
+    RESOURCES = list;
+  }
+}
+
+function saveDocs(){
+  writeStore(DATA_KEY, RESOURCES);
+  renderAll();
+}
+
+function renderAll(){
+  renderFreeHome();
+  renderMemberHome();
+  renderLibrary();
+  renderMemberCenter();
+  updateResourceCounts();
+  if (currentView === "workbench") renderWorkbench();
+  if (currentView === "public") renderPublicPage();
+  if (currentView === "basic") renderBasicPage();
+}
+
+function downloadJSON(obj, fileName){
+  var blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json;charset=utf-8" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); document.body.removeChild(a); }, 300);
+}
+
+function exportLibraryData(){
+  downloadJSON({ app: "AI资料图书馆", version: 2, exportedAt: new Date().toISOString(), resources: RESOURCES }, "library-data.json");
+  toast("已导出 library-data.json，上传到网站根目录即可让所有学员读取更新");
+}
+
+function importLibraryData(event){
+  var file = event.target.files && event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(){
+    try {
+      var data = JSON.parse(String(reader.result));
+      if (Array.isArray(data.resources) && data.resources.length) {
+        RESOURCES = data.resources;
+        saveDocs();
+        toast("资料更新包已导入，共 " + RESOURCES.length + " 册");
+      } else {
+        toast("文件格式不正确：请选择导出的 library-data.json");
+      }
+    } catch (e) {
+      toast("导入失败，文件不是有效 JSON");
+    }
+    event.target.value = "";
+  };
+  reader.readAsText(file);
+}
+
+function exportAccessData(){
+  downloadJSON({ app: "AI资料图书馆权限包", version: 1, updatedAt: new Date().toISOString(), admins: adminAccounts }, "library-access.json");
+  toast("已导出权限包，上传到网站根目录后管理员可在其他设备登录");
+}
+
+function importAccessData(event){
+  var file = event.target.files && event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(){
+    try {
+      var data = JSON.parse(String(reader.result));
+      if (Array.isArray(data.admins)) {
+        adminAccounts = data.admins;
+        saveAdmins();
+        toast("权限包已导入");
+        renderWorkbench();
+      } else {
+        toast("权限包格式不正确");
+      }
+    } catch (e) {
+      toast("导入失败");
+    }
+    event.target.value = "";
+  };
+  reader.readAsText(file);
+}
+
+function loadRemoteFiles(){
+  function fetchJSON(name, done){
+    if (location.protocol !== "https:" && location.protocol !== "http:") { done(null); return; }
+    fetch(name + "?t=" + Date.now(), { cache: "no-store" })
+      .then(function(res){ return res.ok ? res.json() : null; })
+      .then(done)
+      .catch(function(){ done(null); });
+  }
+  fetchJSON("library-data.json", function(data){
+    if (data && Array.isArray(data.resources) && data.resources.length) {
+      RESOURCES = data.resources;
+      renderAll();
+    }
+  });
+  fetchJSON("library-access.json", function(data){
+    if (data && Array.isArray(data.admins)) {
+      adminAccounts = data.admins;
+      saveAdmins();
+      if (currentView === "workbench") renderWorkbench();
+    }
+  });
+}
+
+function escapeHTML(str){
+  return String(str == null ? "" : str).replace(/[&<>"']/g, function(m){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m];
+  });
+}
+
+function iconUse(id, size){
+  return '<svg class="icon' + (size ? " icon-" + size : "") + '"><use href="#' + id + '"/></svg>';
+}
+
+function loadState(){
+  try {
+    var saved = localStorage.getItem(LS_KEY);
+    if (saved) {
+      var data = JSON.parse(saved);
+      if (data && data.member) {
+        state = {
+          member: true,
+          memberId: data.memberId || "",
+          activatedAt: data.activatedAt || "",
+          basic9: true,
+          basic9Date: data.basic9Date || data.activatedAt || ""
+        };
+      }
+    }
+    var basicSaved = localStorage.getItem(BASIC_KEY);
+    if (basicSaved) {
+      var basic = JSON.parse(basicSaved);
+      if (basic && basic.unlocked) {
+        state.basic9 = true;
+        state.basic9Date = basic.date || "";
+      }
+    }
+  } catch (e) {
+    /* localStorage 不可用时保持游客，但站内功能仍可运行 */
+  }
+}
+
+function saveState(){
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify(state));
+    if (state.basic9) {
+      localStorage.setItem(BASIC_KEY, JSON.stringify({ unlocked: true, date: state.basic9Date || formatNow() }));
+    }
+  } catch (e) {
+    /* ignore */
+  }
+}
+
+function isMember(){ return state.member; }
+
+function toast(msg){
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.classList.remove("show"); }, 2200);
+}
+
+function closeOverlay(id){
+  document.getElementById(id).classList.remove("open");
+}
+
+function openMemberModal(notice){
+  document.getElementById("memberModalNotice").innerHTML = iconUse("i-lock", "sm") + "<span>" + escapeHTML(notice || "请开通图书馆会员解锁全套资料与下载权限") + "</span>";
+  document.getElementById("wechatValue").textContent = LIB_CONFIG.wechatId;
+  document.getElementById("memberOverlay").classList.add("open");
+  setTimeout(function(){ var inp = document.getElementById("activationCode"); if (inp) inp.focus(); }, 300);
+}
+
+function openBasicModal(notice){
+  document.getElementById("basicModalNotice").innerHTML = iconUse("i-lock", "sm") + "<span>" + escapeHTML(notice || "请先开通 9.9 学习资料包，开通后仅解锁本区域资料下载") + "</span>";
+  document.getElementById("basicWechatValue").textContent = LIB_CONFIG.wechatId;
+  document.getElementById("basicOverlay").classList.add("open");
+  setTimeout(function(){ var inp = document.getElementById("basicActivationCode"); if (inp) inp.focus(); }, 300);
+}
+
+function copyText(text, successMsg){
+  function done(){ toast(successMsg || "已复制"); }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text, done); });
+  } else {
+    fallbackCopy(text, done);
+  }
+}
+
+function fallbackCopy(text, done){
+  var ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); done(); } catch(e) { toast("复制失败，请长按手动复制"); }
+  document.body.removeChild(ta);
+}
+
+function copyContact(){
+  copyText(LIB_CONFIG.wechatId, "馆长微信已复制，请前往微信添加");
+}
+
+function activateMember(){
+  var inp = document.getElementById("activationCode");
+  var code = (inp.value || "").trim();
+  if (!code) { toast("请输入馆长发放的开通码"); inp.focus(); return; }
+  if (code.toUpperCase().replace(/\s+/g, "") !== todayOpeningCode()) {
+    var form = document.getElementById("activateForm");
+    form.classList.remove("error-shake");
+    void form.offsetWidth;
+    form.classList.add("error-shake");
+    toast("开通码不正确，请联系馆长核对");
+    inp.focus();
+    return;
+  }
+  state = {
+    member: true,
+    memberId: "AILIB-" + String(Date.now()).slice(-8),
+    activatedAt: formatNow(),
+    basic9: true,
+    basic9Date: formatNow()
+  };
+  saveState();
+  closeOverlay("memberOverlay");
+  syncMemberUI();
+  toast("会员开通成功，全套资料已解锁");
+  switchView("member");
+}
+
+function activateBasic(){
+  var inp = document.getElementById("basicActivationCode");
+  var code = (inp.value || "").trim();
+  if (!code) { toast("请输入馆长发放的 9.9 包开通码"); inp.focus(); return; }
+  if (code.toUpperCase().replace(/\s+/g, "") !== basic9DailyCode()) {
+    var form = document.getElementById("basicActivateForm");
+    form.classList.remove("error-shake");
+    void form.offsetWidth;
+    form.classList.add("error-shake");
+    toast("9.9 包开通码不正确，请联系馆长核对");
+    inp.focus();
+    return;
+  }
+  state.basic9 = true;
+  state.basic9Date = formatNow();
+  saveState();
+  closeOverlay("basicOverlay");
+  syncMemberUI();
+  toast("9.9 学习资料包已解锁");
+  switchView("basic");
+}
+
+function formatNow(){
+  var d = new Date();
+  function pad(n){ return n < 10 ? "0" + n : n; }
+  return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + " " + pad(d.getHours()) + ":" + pad(d.getMinutes());
+}
+
+function syncMemberUI(){
+  var member = isMember();
+  var top = document.getElementById("topStatus");
+  top.className = "status-chip " + (member ? "member" : "guest");
+  top.innerHTML = iconUse(member || state.basic9 ? "i-unlock" : "i-lock", "sm") + '<span id="topStatusText">' + (member ? "已解锁" : (state.basic9 ? "9.9用户" : "游客")) + "</span>";
+  document.querySelectorAll(".resource-card").forEach(function(card){
+    var access = card.getAttribute("data-access");
+    var locked = access === "member" || access === "basic";
+    var unlockedForThis = access === "member" ? member : (access === "basic" ? hasBasicAccess() : true);
+    card.classList.toggle("is-locked", !unlockedForThis && locked);
+    card.classList.toggle("is-unlocked", !!unlockedForThis && locked);
+    var chip = card.querySelector(".lock-chip");
+    if (chip) chip.innerHTML = iconUse(unlockedForThis ? "i-unlock" : "i-lock");
+    var lockedBtns = card.querySelectorAll(".need-member");
+    lockedBtns.forEach(function(btn){
+      btn.classList.toggle("member-locked", !unlockedForThis);
+      btn.innerHTML = iconUse(unlockedForThis ? "i-download" : "i-lock", "sm") + escapeHTML(btn.getAttribute("data-label") || "下载完整文件");
+    });
+  });
+  syncBasicBanner();
+  var banner = document.getElementById("homeMemberBanner");
+  if (banner) {
+    var guestState = !member;
+    banner.className = "member-banner " + (guestState ? "guest-state" : "member-state");
+    document.getElementById("homeMemberIcon").firstElementChild.setAttribute("href", guestState ? "#i-lock" : "#i-unlock");
+    document.getElementById("homeMemberTitle").textContent = guestState ? "会员馆藏已上锁" : "会员馆藏已全部解锁";
+    document.getElementById("homeMemberText").textContent = guestState ? "游客仅可见目录与简介，无法预览全套资料。" : "全套资料在线预览与下载权限已永久开启。";
+    banner.querySelector("button").style.display = guestState ? "inline-flex" : "none";
+  }
+  renderMemberCenter();
+  updateResourceCounts();
+}
+
+function updateResourceCounts(){
+  var total = RESOURCES.length;
+  var el = document.getElementById("statTotal");
+  if (el) el.textContent = total;
+}
+
+function switchView(name){
+  currentView = name;
+  document.querySelectorAll(".view").forEach(function(v){ v.classList.remove("active"); });
+  var target = document.getElementById("view-" + name);
+  if (target) target.classList.add("active");
+  document.querySelectorAll(".nav-item").forEach(function(n){
+    n.classList.toggle("active", n.getAttribute("data-nav") === name);
+  });
+  if (name === "library") renderLibrary();
+  if (name === "public") renderPublicPage();
+  if (name === "basic") renderBasicPage();
+  if (name === "member") renderMemberCenter();
+  if (name === "workbench") renderWorkbench();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function goTo(id){
+  switchView("home");
+  setTimeout(function(){
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({behavior:"smooth", block:"start"});
+  }, 80);
+}
+
+function resourceCardHTML(r){
+  var meta = CATEGORY_META[r.category] || CATEGORY_META["馆长手记"];
+  var memberAccess = r.access === "member";
+  var basicAccess = r.access === "basic";
+  var hasAccess = r.access === "free" || (memberAccess && isMember()) || (basicAccess && hasBasicAccess());
+  var lockState = !hasAccess && (memberAccess || basicAccess) ? "is-locked" : "";
+  var unlocked = hasAccess && (memberAccess || basicAccess) ? "is-unlocked" : "";
+  var filesLabel = r.files && r.files.length ? r.files.join(" · ") : "完整文件";
+  var previewLabel = memberAccess ? (isMember() ? "在线预览" : "查看内容") : (basicAccess ? (hasBasicAccess() ? "在线预览" : "9.9包内容") : "免费阅读");
+  var downloadLabel = memberAccess ? "会员下载" : (basicAccess ? "9.9包下载" : "免费下载");
+  var downloadIcon = hasAccess ? "i-download" : "i-lock";
+  var lockedFlag = hasAccess ? "" : " member-locked";
+  var downloadClass = memberAccess ? "btn-pine need-member" + lockedFlag : (basicAccess ? "btn-gold need-member" + lockedFlag : "btn-gold free-download");
+  var lockIcon = hasAccess ? "i-unlock" : "i-lock";
+  var lockTitle = memberAccess ? "会员专属" : (basicAccess ? "9.9资料包" : "免费公开");
+  var kindClass = memberAccess ? "is-member" : (basicAccess ? "is-member is-basic" : "is-public");
+  return '<article class="resource-card ' + kindClass + " " + lockState + " " + unlocked + '" data-access="' + r.access + '" data-id="' + r.id + '" onclick="onCardTap(this)">' +
+    '<div class="card-top">' +
+      '<div class="file-thumb">' + iconUse(memberAccess ? "i-vip" : (basicAccess ? "i-vip" : "i-file")) + "</div>" +
+      '<div class="card-title-wrap">' +
+        '<div class="card-code">' + escapeHTML(r.code) + " · " + escapeHTML(r.update) + "</div>" +
+        "<h3>" + escapeHTML(r.title) + "</h3>" +
+        '<span class="cat-chip">' + escapeHTML(r.category) + "</span>" +
+      "</div>" +
+      '<span class="lock-chip" title="' + (hasAccess && (memberAccess || basicAccess) ? "已解锁" : lockTitle) + '">' + iconUse(lockIcon) + "</span>" +
+    "</div>" +
+    '<p class="card-desc">' + escapeHTML(r.desc) + "</p>" +
+    '<div class="tags">' + r.tags.map(function(t){ return '<span class="tag">' + escapeHTML(t) + "</span>"; }).join("") + "</div>" +
+    '<div class="card-meta"><span>' + iconUse("i-eye", "sm") + " 预览约 " + r.minutes + " 分钟</span><span>" + iconUse("i-file", "sm") + " " + escapeHTML(filesLabel) + "</span></div>" +
+    '<div class="card-actions">' +
+      '<button class="btn btn-ghost" type="button" data-action="preview" onclick="event.stopPropagation();onPreviewTap(event)">' + iconUse("i-eye", "sm") + previewLabel + "</button>" +
+      '<button class="btn ' + downloadClass + '" type="button" data-action="download" data-label="' + downloadLabel + '" onclick="event.stopPropagation();onDownloadTap(event)">' + iconUse(downloadIcon, "sm") + downloadLabel + "</button>" +
+    "</div>" +
+  "</article>";
+}
+
+function findResource(id){
+  return RESOURCES.filter(function(r){ return r.id === id; })[0] || null;
+}
+
+function onCardTap(card){
+  var actionBtn = card.querySelector("[data-action='preview']");
+  if (actionBtn) actionBtn.click();
+}
+
+function onPreviewTap(event){
+  var card = event.currentTarget.closest(".resource-card");
+  var r = findResource(card.getAttribute("data-id"));
+  if (!r) return;
+  if (r.access === "member" && !isMember()) {
+    openMemberModal("请开通图书馆会员解锁全套资料与下载权限");
+    return;
+  }
+  if (r.access === "basic" && !hasBasicAccess()) {
+    openBasicModal("请先开通 9.9 学习资料包，开通后仅解锁本区域资料下载");
+    return;
+  }
+  openPreview(r);
+}
+
+function onDownloadTap(event){
+  var card = event.currentTarget.closest(".resource-card");
+  var r = findResource(card.getAttribute("data-id"));
+  if (!r) return;
+  if (r.access === "member" && !isMember()) {
+    openMemberModal("请开通图书馆会员解锁全套资料与下载权限");
+    return;
+  }
+  if (r.access === "basic" && !hasBasicAccess()) {
+    openBasicModal("请先开通 9.9 学习资料包，开通后仅解锁本区域资料下载");
+    return;
+  }
+  downloadResource(r);
+}
+
+function getPreviewText(r){
+  if (r.access === "free") return r.fullText || r.excerpt || r.fileText || "";
+  if (r.access === "basic") return r.fullText || "9.9 资料包完整正文。";
+  if (!isMember()) return "请开通图书馆会员解锁全套资料与下载权限。";
+  return r.fullText || "会员完整正文：开通后即可阅读。";
+}
+
+function openPreview(r){
+  CURRENT_ITEM = r;
+  document.getElementById("previewTitle").textContent = r.title;
+  document.getElementById("previewCategory").textContent = r.category;
+  document.getElementById("previewCode").textContent = r.code + " · " + (r.access === "free" ? "公开免费资料" : (r.access === "basic" ? "9.9 资料包完整预览" : "会员完整预览"));
+  document.getElementById("previewBody").textContent = getPreviewText(r);
+  var btn = document.getElementById("previewDownloadBtn");
+  if (r.access === "free") {
+    btn.classList.add("btn-gold");
+    btn.classList.remove("btn-pine");
+    btn.innerHTML = iconUse("i-download", "sm") + "免费下载完整文件";
+  } else if (r.access === "basic") {
+    if (!hasBasicAccess()) {
+      btn.classList.add("btn-gold");
+      btn.classList.remove("btn-pine");
+      btn.innerHTML = iconUse("i-lock", "sm") + "开通 9.9 包后下载";
+    } else {
+      btn.classList.add("btn-pine");
+      btn.classList.remove("btn-gold");
+      btn.innerHTML = iconUse("i-download", "sm") + "下载本区域文件";
+    }
+  } else if (r.access === "member" && !isMember()) {
+    btn.classList.add("btn-gold");
+    btn.classList.remove("btn-pine");
+    btn.innerHTML = iconUse("i-lock", "sm") + "开通后下载";
+  } else {
+    btn.classList.remove("btn-gold");
+    btn.classList.add("btn-pine");
+    btn.innerHTML = iconUse("i-download", "sm") + "下载完整文件";
+  }
+  document.getElementById("previewOverlay").classList.add("open");
+}
+
+function downloadCurrent(){
+  if (!CURRENT_ITEM) return;
+  if (CURRENT_ITEM.access === "member" && !isMember()) {
+    closeOverlay("previewOverlay");
+    openMemberModal("请开通图书馆会员解锁全套资料与下载权限");
+    return;
+  }
+  if (CURRENT_ITEM.access === "basic" && !hasBasicAccess()) {
+    closeOverlay("previewOverlay");
+    openBasicModal("请先开通 9.9 学习资料包，开通后仅解锁本区域资料下载");
+    return;
+  }
+  downloadResource(CURRENT_ITEM);
+}
+
+function copyPreview(){
+  if (!CURRENT_ITEM) return;
+  copyText(getPreviewText(CURRENT_ITEM), "预览内容已复制");
+}
+
+function downloadResource(r){
+  if (r.access === "member" && !isMember()) {
+    openMemberModal("请开通图书馆会员解锁全套资料与下载权限");
+    return;
+  }
+  if (r.access === "basic" && !hasBasicAccess()) {
+    openBasicModal("请先开通 9.9 学习资料包，开通后仅解锁本区域资料下载");
+    return;
+  }
+  var fileName = (r.files && r.files[0]) ? r.files[0] : (r.code + ".txt");
+  if (r.fileUrl) {
+    var direct = document.createElement("a");
+    direct.href = r.fileUrl;
+    direct.download = fileName;
+    direct.target = "_blank";
+    direct.rel = "noopener";
+    document.body.appendChild(direct);
+    direct.click();
+    setTimeout(function(){ document.body.removeChild(direct); }, 300);
+    toast("文件已开始下载：" + fileName);
+    return;
+  }
+  var text = r.fileText || r.fullText || r.excerpt || "";
+  var full = "【AI资料图书馆】" + r.code + " " + r.title + "\n" +
+    "馆藏分类：" + r.category + "\n" +
+    "资料版本更新：" + r.update + "\n" +
+    (r.access === "free" ? "资料类型：免费公开资料，可直接分享给需要的朋友。\n" : (r.access === "basic" ? "资料类型：9.9 学习资料包授权文件，仅供本包用户学习。\n" : "资料类型：会员授权文件，仅供个人学习。\n")) +
+    "----------------------------------------\n\n" + text;
+  var blob = new Blob([full], {type:"text/plain;charset=utf-8"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){
+    URL.revokeObjectURL(a.href);
+    document.body.removeChild(a);
+  }, 400);
+  toast("文件已开始下载：" + fileName);
+}
+
+function renderFreeHome(){
+  var free = RESOURCES.filter(function(r){ return r.access === "free"; });
+  document.getElementById("homeFreeGrid").innerHTML = free.map(resourceCardHTML).join("");
+}
+
+function renderMemberHome(){
+  var member = RESOURCES.filter(function(r){ return r.access === "member"; });
+  document.getElementById("homeMemberGrid").innerHTML = member.slice(0, 6).map(resourceCardHTML).join("");
+}
+
+var FILTERS = [
+  {id:"all", label:"全部馆藏"},
+  {id:"free", label:"免费公开"},
+  {id:"9.9学习资料", label:"9.9学习包"},
+  {id:"AI工具实操馆", label:"AI工具"},
+  {id:"副业项目拆解馆", label:"副业项目"},
+  {id:"自媒体写作馆", label:"写作运营"},
+  {id:"考证学习馆", label:"考证学习"},
+  {id:"模板素材馆", label:"模板素材"}
+];
+
+function renderLibrary(){
+  var row = document.getElementById("filterRow");
+  row.innerHTML = FILTERS.map(function(f){
+    return '<button class="btn ' + (CURRENT_FILTER === f.id ? "btn-pine" : "btn-ghost") + '" style="min-height:34px;font-size:12px;flex:none" type="button" onclick="setFilter(\'' + f.id + '\')">' + f.label + "</button>";
+  }).join("");
+  var list = RESOURCES.filter(function(r){
+    if (CURRENT_FILTER === "all") return true;
+    if (CURRENT_FILTER === "free") return r.access === "free";
+    return r.category === CURRENT_FILTER;
+  });
+  document.getElementById("libraryCount").textContent = "当前显示 " + list.length + " 册 · 公开资料游客可直接下载；会员资料需开通会员";
+  document.getElementById("libraryGrid").innerHTML = list.map(resourceCardHTML).join("") || '<div class="panel" style="padding:18px;text-align:center;color:var(--muted)">该分类暂无资料</div>';
+}
+
+function setFilter(id){
+  CURRENT_FILTER = id;
+  renderLibrary();
+}
+
+var CURRENT_PUBLIC_FILTER = "all";
+var PUBLIC_FILTERS = [
+  { id: "all", label: "全部免费" },
+  { id: "免费公开课", label: "公开课" },
+  { id: "AI工具实操馆", label: "AI工具" },
+  { id: "副业项目拆解馆", label: "副业项目" },
+  { id: "自媒体写作馆", label: "写作运营" },
+  { id: "模板素材馆", label: "模板工具" }
+];
+
+function renderPublicPage(){
+  var row = document.getElementById("publicFilterRow");
+  if (!row) return;
+  row.innerHTML = PUBLIC_FILTERS.map(function(f){
+    return '<button class="btn ' + (CURRENT_PUBLIC_FILTER === f.id ? "btn-gold" : "btn-ghost") + '" style="min-height:34px;font-size:12px;flex:none" type="button" onclick="setPublicFilter(\'' + f.id + '\')">' + f.label + "</button>";
+  }).join("");
+  var free = RESOURCES.filter(function(r){ return r.access === "free"; });
+  var list = free.filter(function(r){
+    if (CURRENT_PUBLIC_FILTER === "all") return true;
+    return r.category === CURRENT_PUBLIC_FILTER;
+  });
+  var totalEl = document.getElementById("freeTotal");
+  if (totalEl) totalEl.textContent = free.length;
+  var count = document.getElementById("publicCount");
+  if (count) count.textContent = "公开资料共 " + free.length + " 份 · 当前显示 " + list.length + " 份 · 无需会员可直接下载";
+  document.getElementById("publicGrid").innerHTML = list.map(resourceCardHTML).join("") || '<div class="empty-tip">该分类暂无免费资料</div>';
+}
+
+function setPublicFilter(id){
+  CURRENT_PUBLIC_FILTER = id;
+  renderPublicPage();
+}
+
+function downloadFreeBundle(){
+  var free = RESOURCES.filter(function(r){ return r.access === "free"; });
+  if (!free.length) { toast("暂无免费资料"); return; }
+  var parts = ["AI资料图书馆 · 免费公开资料礼包", "下载时间：" + formatNow(), "本礼包全部免费，欢迎分享给需要的朋友。", ""];
+  free.forEach(function(r){
+    parts.push("【" + r.code + "】" + r.title);
+    parts.push("分类：" + r.category + " · 更新：" + r.update);
+    parts.push("------------------------------------------------");
+    parts.push(r.fileText || r.fullText || r.excerpt || "");
+    parts.push("");
+    parts.push("");
+  });
+  var blob = new Blob([parts.join("\n")], { type: "text/plain;charset=utf-8" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "AI资料图书馆-免费公开资料礼包.txt";
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); document.body.removeChild(a); }, 300);
+  toast("免费资料礼包已开始下载");
+}
+
+function renderBasicPage(){
+  var grid = document.getElementById("basicGrid");
+  if (!grid) return;
+  var list = RESOURCES.filter(function(r){ return r.access === "basic"; });
+  grid.innerHTML = list.map(resourceCardHTML).join("") || '<div class="empty-tip">暂无 9.9 资料</div>';
+  syncBasicBanner();
+}
+
+function syncBasicBanner(){
+  var banner = document.getElementById("basicBanner");
+  if (!banner) return;
+  var unlocked = hasBasicAccess();
+  banner.className = "basic-banner " + (unlocked ? "unlocked" : "locked");
+  document.getElementById("basicBannerTitle").textContent = unlocked ? "9.9 资料包已解锁" : "9.9 资料包未解锁";
+  document.getElementById("basicBannerText").textContent = unlocked
+    ? "本区域全部学习资料已可预览和下载，无需再次验证。"
+    : "游客可查看目录，但下载本区域资料前需要先开通 9.9 资料包。";
+  var btn = banner.querySelector("button");
+  if (btn) btn.style.display = unlocked ? "none" : "inline-flex";
+}
+
+function renderMemberCenter(){
+  var box = document.getElementById("memberStateBox");
+  if (!isMember()) {
+    box.innerHTML =
+      '<div class="member-banner guest-state">' +
+        '<div class="member-banner-main">' + iconUse("i-lock", "lg") +
+          "<div><h3>当前为游客权限</h3><p>公开资料可免费下载；会员馆藏已锁定。</p></div>" +
+        "</div>" +
+        '<button class="btn btn-gold" type="button" onclick="openMemberModal(\'请开通图书馆会员解锁全套资料与下载权限\')">立即开通</button>' +
+      "</div>" +
+      '<div class="benefit-grid" style="margin-top:10px">' +
+        '<div class="benefit-item"><span class="b-icon">' + iconUse("i-eye", "sm") + "</span><div><h4>全套在线预览</h4><p>会员馆藏完整正文可阅读</p></div></div>" +
+        '<div class="benefit-item"><span class="b-icon">' + iconUse("i-download", "sm") + "</span><div><h4>完整文件下载</h4><p>公开资料与会员资料均可下载</p></div></div>" +
+        '<div class="benefit-item"><span class="b-icon">' + iconUse("i-update", "sm") + "</span><div><h4>版本持续更新</h4><p>更新后同一入口重新获取</p></div></div>" +
+        '<div class="benefit-item"><span class="b-icon">' + iconUse("i-user", "sm") + "</span><div><h4>馆长使用指导</h4><p>不会用时按手册操作</p></div></div>" +
+      "</div>" +
+      '<div class="price-line"><b>' + LIB_CONFIG.price + "</b><span>" + escapeHTML(LIB_CONFIG.priceNote) + "</span></div>";
+    document.getElementById("memberBenefitsBox").innerHTML =
+      '<div class="panel notice-card" style="margin-top:10px">' +
+        '<div class="notice-icon" style="background:var(--gold-soft);color:var(--gold)">' + iconUse("i-vip") + "</div>" +
+        "<div class=\"notice-body\"><h3>开通方式</h3><p>点击上方“立即开通”，复制馆长微信完成支付，再输入馆长发放的开通码，本机立即永久解锁。</p></div>" +
+      "</div>";
+    document.getElementById("memberResourceBox").innerHTML = "";
+    return;
+  }
+
+  var memberRes = RESOURCES.filter(function(r){ return r.access === "member"; });
+  var freeRes = RESOURCES.filter(function(r){ return r.access === "free"; });
+  box.innerHTML =
+    '<div class="member-status-card">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">' +
+        "<div><h3 style=\"font-size:18px\">终身会员 · 已解锁</h3><p style=\"font-size:12px;opacity:.85;margin-top:2px\">全套资料在线预览与下载权限已永久开启</p></div>" +
+        '<span class="status-chip member">' + iconUse("i-unlock", "sm") + "已点亮</span>" +
+      "</div>" +
+      '<div class="row"><span>会员编号</span><span class="member-number">' + escapeHTML(state.memberId || "AILIB-MEMBER") + "</span></div>" +
+      '<div class="row"><span>开通时间</span><span>' + escapeHTML(state.activatedAt || "-") + "</span></div>" +
+      '<div class="row"><span>馆藏更新</span><span>' + escapeHTML(LIB_CONFIG.updateDate) + "</span></div>" +
+      '<div style="margin-top:14px">' +
+        '<button class="btn btn-gold" style="width:100%" type="button" onclick="downloadCatalogue()">' + iconUse("i-download", "sm") + "下载馆藏总目录</button>" +
+      "</div>" +
+    "</div>";
+
+  document.getElementById("memberBenefitsBox").innerHTML =
+    '<div class="benefit-grid" style="margin-top:10px">' +
+      '<div class="benefit-item"><span class="b-icon">' + iconUse("i-check", "sm") + "</span><div><h4>全套在线预览</h4><p>会员馆藏完整正文可读</p></div></div>" +
+      '<div class="benefit-item"><span class="b-icon">' + iconUse("i-check", "sm") + "</span><div><h4>完整文件下载</h4><p>全部馆藏均可下载</p></div></div>" +
+      '<div class="benefit-item"><span class="b-icon">' + iconUse("i-check", "sm") + "</span><div><h4>持续更新权益</h4><p>每周更新，版本可回溯</p></div></div>" +
+      '<div class="benefit-item"><span class="b-icon">' + iconUse("i-check", "sm") + "</span><div><h4>馆长补链服务</h4><p>下载异常可联系馆长处理</p></div></div>" +
+    "</div>";
+
+  var html = "";
+  html += '<div class="section"><div class="section-head"><div><span class="eyebrow">Member Files</span><h2>会员专属馆藏全览</h2><p class="subtitle">共 ' + memberRes.length + " 册 · 全部可预览和永久下载</p></div></div>";
+  html += '<div class="collection-grid">' + memberRes.map(resourceCardHTML).join("") + "</div></div>";
+  html += '<div class="section"><div class="section-head"><div><span class="eyebrow">Public</span><h2>公开资料（会员可直接下载）</h2><p class="subtitle">共 ' + freeRes.length + " 册</p></div></div>";
+  html += '<div class="collection-grid">' + freeRes.map(resourceCardHTML).join("") + "</div></div>";
+  document.getElementById("memberResourceBox").innerHTML = html;
+}
+
+function downloadCatalogue(){
+  if (!isMember()) { openMemberModal("请开通图书馆会员解锁全套资料与下载权限"); return; }
+  var lines = ["AI资料图书馆 · 馆藏总目录", "导出日期：" + formatNow(), "----------------------------------------", ""];
+  RESOURCES.forEach(function(r){
+    lines.push("[" + r.access + "] " + r.code + " " + r.title);
+    lines.push("分类：" + r.category + " · 更新：" + r.update);
+    lines.push("文件：" + r.files.join(", "));
+    lines.push("");
+  });
+  var blob = new Blob([lines.join("\n")], {type:"text/plain;charset=utf-8"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "AI资料图书馆-馆藏总目录.txt";
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); document.body.removeChild(a); }, 400);
+  toast("馆藏总目录已开始下载");
+}
+
+/* ============ 馆长 / 管理员工作台 ============ */
+function renderWorkbench(){
+  var box = document.getElementById("workbenchBody");
+  if (!box) return;
+  var html = "";
+  if (session.role === "curator") {
+    html += renderCuratorPanel();
+  } else if (session.role === "admin") {
+    html += renderAdminPanel();
+  } else {
+    html += renderWorkbenchLogin();
+  }
+  box.innerHTML = html;
+}
+
+function renderWorkbenchLogin(){
+  return '<div class="role-card">' +
+    '<h3>馆长登录</h3><p>输入馆长密码，可查看每日开通码并管理管理员。馆长拥有最高权限。</p>' +
+    '<div class="field" style="margin-top:8px"><input id="curatorPassInput" type="password" placeholder="馆长密码" autocomplete="off"></div>' +
+    '<button class="btn btn-gold btn-block" type="button" onclick="curatorLogin()">进入馆长工作台</button>' +
+    "</div>" +
+    '<div class="role-card">' +
+    '<h3>管理员登录</h3><p>管理员仅能进入资料更新台，负责新增、修改、删除文档；不能查看开通码，也不能管理其他管理员。</p>' +
+    '<div class="field" style="margin-top:8px"><input id="adminCodeInput" type="password" placeholder="管理员开通码" autocomplete="off"></div>' +
+    '<button class="btn btn-pine btn-block" type="button" onclick="adminLogin()">进入资料更新台</button>' +
+    "</div>" +
+    '<div class="warn-box">部署提示：馆长新增管理员后，请点“导出权限包”并把 library-access.json 上传到网站根目录，管理员才能在其它设备登录。纯静态页面无法把权限自动同步到所有手机。</div>';
+}
+
+function curatorLogin(){
+  var input = document.getElementById("curatorPassInput");
+  if (!input) return;
+  if (input.value !== LIB_CONFIG.curatorPass) {
+    toast("馆长密码不正确");
+    input.focus();
+    return;
+  }
+  session = { role: "curator", name: LIB_CONFIG.curatorName || "馆长", time: formatNow() };
+  saveSession();
+  renderWorkbench();
+  toast("馆长登录成功，最高权限已开启");
+}
+
+function adminLogin(){
+  var input = document.getElementById("adminCodeInput");
+  if (!input) return;
+  var code = input.value.trim().toUpperCase();
+  var admin = adminAccounts.filter(function(a){ return String(a.code).toUpperCase() === code; })[0];
+  if (!admin) {
+    toast("管理员开通码不正确，请联系馆长核对");
+    input.focus();
+    return;
+  }
+  session = { role: "admin", name: admin.name || "管理员", time: formatNow() };
+  saveSession();
+  renderWorkbench();
+  toast("管理员登录成功，仅开放资料更新权限");
+}
+
+function renderCuratorPanel(){
+  var code = todayOpeningCode();
+  var basicCode = basic9DailyCode();
+  var adminRows = adminAccounts.length
+    ? adminAccounts.map(function(a){
+        return '<div class="doc-row"><div class="doc-row-main"><b>' + escapeHTML(a.name) +
+          '</b><span>' + escapeHTML(a.code) + " · " + escapeHTML(a.createdAt || "") + "</span></div>" +
+          '<div class="doc-row-actions">' +
+          '<button class="btn btn-ghost" type="button" onclick="copyText(\'' + escapeHTML(a.code) + '\',\'管理员开通码已复制\')">复制</button>' +
+          '<button class="btn btn-danger-ghost" type="button" onclick="removeAdmin(\'' + escapeHTML(a.id) + '\')">移除</button>' +
+          "</div></div>";
+      }).join("")
+    : '<div class="empty-tip">还没有管理员。填名字后点击“生成并添加”。</div>';
+
+  return '<div class="role-card">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">' +
+      '<div><h3>馆长工作台 · 最高权限</h3><p>当前登录：' + escapeHTML(session.name) + " · " + escapeHTML(session.time) + "</p></div>" +
+      '<button class="btn btn-ghost" type="button" onclick="logoutRole()">退出</button>' +
+    "</div>" +
+  "</div>" +
+  '<div class="role-card">' +
+    "<h3>今日开通码</h3>" +
+    '<p>仅馆长可见；每天 00:00 自动更换。学员当日支付后，把当日开通码发给他即可。已开通会员永久有效，之后无需再次输入开通码。</p>' +
+    '<div class="code-box"><b>' + escapeHTML(code) + "</b>" +
+    '<button class="btn btn-gold" type="button" onclick="copyText(\'' + code + '\',\'今日开通码已复制\')">复制</button></div>' +
+    '<div id="codeRefreshNote" class="muted" style="margin-top:6px">今日有效 · 00:00 后自动生成新码</div>' +
+    '<div style="margin-top:12px"><div class="label" style="font-size:11px;font-weight:800;color:var(--ink-soft)">9.9 学习资料包开通码</div></div>' +
+    '<div class="code-box"><b>' + escapeHTML(basicCode) + "</b>" +
+    '<button class="btn btn-gold" type="button" onclick="copyText(\'' + basicCode + '\',\'9.9 包开通码已复制\')">复制</button></div>' +
+    '<p class="muted" style="margin-top:6px">9.9 包开通码同样每天 00:00 更换；只解锁 9.9 资料包区域。</p>' +
+  "</div>" +
+  '<div class="role-card">' +
+    "<h3>管理员管理</h3><p>管理员只负责文档更新，无查看开通码、管理会员、管理管理员等权限。</p>" +
+    '<div class="activate-form" style="margin-bottom:10px">' +
+      '<input id="newAdminName" type="text" placeholder="输入管理员昵称">' +
+      '<button class="btn btn-pine" type="button" onclick="addAdmin()">生成并添加</button>' +
+    "</div>" +
+    adminRows +
+    '<div class="wb-toolbar">' +
+      '<button class="btn btn-gold" type="button" onclick="exportAccessData()">导出权限包</button>' +
+      '<label class="btn btn-ghost" style="cursor:pointer;text-align:center"><svg class="icon icon-sm"><use href="#i-file"/></svg>导入权限包<input type="file" accept=".json" style="display:none" onchange="importAccessData(event)"></label>' +
+    "</div>" +
+  "</div>" +
+  renderDocManagerHTML() +
+  '<div class="role-card"><div class="wb-toolbar">' +
+    '<button class="btn btn-danger-ghost" type="button" onclick="resetDocs()">恢复出厂资料</button>' +
+  "</div></div>";
+}
+
+function renderAdminPanel(){
+  return '<div class="role-card">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">' +
+      '<div><h3>资料更新台 · 管理员</h3><p>当前登录：' + escapeHTML(session.name) + " · 权限：仅新增/修改/删除文档</p></div>" +
+      '<button class="btn btn-ghost" type="button" onclick="logoutRole()">退出</button>' +
+    "</div>" +
+  "</div>" +
+  '<div class="warn-box">管理员不能查看每日开通码，不能添加/移除管理员，不能修改会员价格，不能查看会员私密数据。所有文档改动请点“导出资料更新包”，再请馆长上传到网站根目录后才会对所有学员生效。</div>' +
+  renderDocManagerHTML();
+}
+
+function renderDocManagerHTML(){
+  var rows = RESOURCES.length
+    ? RESOURCES.map(function(r){
+        return '<div class="doc-row">' +
+        '<div class="doc-row-main"><b>' + escapeHTML(r.title) + '</b><span>' + escapeHTML(r.code) + " · " + escapeHTML(r.category) + " · " + (r.access === "free" ? "公开" : (r.access === "basic" ? "9.9包" : "会员")) + "</span></div>" +
+          '<div class="doc-row-actions">' +
+          '<button class="btn btn-ghost" type="button" onclick="openDocForm(\'' + escapeHTML(r.id) + '\')">编辑</button>' +
+          '<button class="btn btn-danger-ghost" type="button" onclick="removeDoc(\'' + escapeHTML(r.id) + '\')">删除</button>' +
+          "</div></div>";
+      }).join("")
+    : '<div class="empty-tip">还没有文档</div>';
+  return '<div class="role-card">' +
+    '<div class="section-head" style="margin-bottom:6px"><div><h3>文档更新台</h3><p class="subtitle">共 ' + RESOURCES.length + " 册文档</p></div></div>" +
+    '<button class="btn btn-gold btn-block" type="button" onclick="openDocForm(\'\')">' + iconUse("i-file", "sm") + "新增文档</button>" +
+    '<div style="margin:10px 0">' + rows + "</div>" +
+    '<div class="wb-toolbar">' +
+      '<button class="btn btn-pine" type="button" onclick="exportLibraryData()">导出资料更新包</button>' +
+      '<label class="btn btn-ghost" style="cursor:pointer;text-align:center"><svg class="icon icon-sm"><use href="#i-file"/></svg>导入更新包<input type="file" accept=".json" style="display:none" onchange="importLibraryData(event)"></label>' +
+    "</div>" +
+    '<div class="warn-box">导出的 library-data.json 上传到网站根目录后，所有学员刷新即可看到最新文档。</div>' +
+  "</div>";
+}
+
+function addAdmin(){
+  var input = document.getElementById("newAdminName");
+  var name = input.value.trim();
+  if (!name) { toast("请先输入管理员昵称"); input.focus(); return; }
+  var id = "adm-" + Date.now();
+  var code = "ADM-" + hashText(name + "|" + id + "|" + Math.random()).slice(0, 6);
+  var now = formatNow();
+  adminAccounts.push({ id: id, name: name, code: code, createdAt: now });
+  saveAdmins();
+  renderWorkbench();
+  toast("管理员已添加：" + name + "，开通码 " + code + "，请复制后单独发给管理员");
+}
+
+function removeAdmin(id){
+  if (!window.confirm("确定移除这名管理员？")) return;
+  adminAccounts = adminAccounts.filter(function(a){ return a.id !== id; });
+  saveAdmins();
+  renderWorkbench();
+  toast("管理员已移除");
+}
+
+function openDocForm(id){
+  var r = RESOURCES.filter(function(item){ return item.id === id; })[0] || null;
+  document.getElementById("editingDocId").value = r ? r.id : "";
+  document.getElementById("docCode").value = r ? r.code : "";
+  document.getElementById("docTitle").value = r ? r.title : "";
+  document.getElementById("docCategory").value = r ? r.category : "AI工具实操馆";
+  document.getElementById("docAccess").value = r ? r.access : "member";
+  document.getElementById("docUpdate").value = r ? r.update : dateKey(new Date());
+  document.getElementById("docMinutes").value = r ? r.minutes : 5;
+  document.getElementById("docDesc").value = r ? r.desc : "";
+  document.getElementById("docTags").value = r && r.tags ? r.tags.join(",") : "";
+  document.getElementById("docFiles").value = r && r.files ? r.files.join(",") : "";
+  document.getElementById("docFileUrl").value = r && r.fileUrl ? r.fileUrl : "";
+  document.getElementById("docFullText").value = r && r.fullText ? r.fullText : "";
+  document.getElementById("docFileText").value = r && r.fileText ? r.fileText : "";
+  document.getElementById("docEditTitle").textContent = r ? "编辑文档：" + r.title : "新增文档";
+  document.getElementById("docEditOverlay").classList.add("open");
+}
+
+function saveDocForm(){
+  var title = document.getElementById("docTitle").value.trim();
+  if (!title) { toast("请填写资料标题"); return; }
+  var id = document.getElementById("editingDocId").value || "doc-" + Date.now();
+  var filesRaw = document.getElementById("docFiles").value;
+  var data = {
+    id: id,
+    code: document.getElementById("docCode").value.trim() || id.toUpperCase().replace(/[^A-Z0-9]/g, "-").slice(0, 12),
+    access: document.getElementById("docAccess").value,
+    category: document.getElementById("docCategory").value,
+    update: document.getElementById("docUpdate").value.trim() || dateKey(new Date()),
+    title: title,
+    desc: document.getElementById("docDesc").value.trim(),
+    tags: document.getElementById("docTags").value.split(/[,，]/).map(function(s){ return s.trim(); }).filter(Boolean),
+    minutes: parseInt(document.getElementById("docMinutes").value, 10) || 5,
+    files: filesRaw.split(/[,，]/).map(function(s){ return s.trim(); }).filter(Boolean),
+    fileUrl: document.getElementById("docFileUrl").value.trim() || "",
+    fullText: document.getElementById("docFullText").value,
+    fileText: document.getElementById("docFileText").value
+  };
+  var idx = -1;
+  RESOURCES.forEach(function(item, i){ if (item.id === id) idx = i; });
+  if (idx > -1) RESOURCES[idx] = data; else RESOURCES.push(data);
+  saveDocs();
+  closeOverlay("docEditOverlay");
+  renderWorkbench();
+  toast("文档已保存，请导出资料更新包并上传");
+}
+
+function removeDoc(id){
+  if (!window.confirm("确定删除这份文档？删除后请导出更新包并上传，否则只影响当前设备预览。")) return;
+  RESOURCES = RESOURCES.filter(function(r){ return r.id !== id; });
+  saveDocs();
+  renderWorkbench();
+  toast("文档已删除");
+}
+
+function resetDocs(){
+  if (!session || session.role !== "curator") { toast("仅馆长可恢复出厂资料"); return; }
+  if (!window.confirm("确定把所有文档恢复为出厂示例？管理员的历史更新会清空。")) return;
+  try { localStorage.removeItem(DATA_KEY); } catch(e) { /* ignore */ }
+  RESOURCES = BUILTIN_RESOURCES.slice();
+  renderAll();
+  renderWorkbench();
+  toast("已恢复出厂资料");
+}
+
+function scheduleDailyCodeRefresh(){
+  var now = new Date();
+  var next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 2);
+  var delay = Math.max(1000, next.getTime() - now.getTime());
+  setTimeout(function(){
+    if (session && session.role === "curator") renderWorkbench();
+    scheduleDailyCodeRefresh();
+  }, delay);
+}
+
+function applyCuratorConfig(){
+  var map = {
+    curatorName: LIB_CONFIG.curatorName,
+    curatorTitle: LIB_CONFIG.curatorTitle,
+    curatorIntro: LIB_CONFIG.curatorIntro,
+    curatorMessage: LIB_CONFIG.curatorMessage,
+    announceTitle: LIB_CONFIG.announceTitle,
+    announceText: LIB_CONFIG.announceText
+  };
+  Object.keys(map).forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) el.textContent = map[id];
+  });
+  var date = document.getElementById("announceDate");
+  if (date) date.textContent = "更新于 " + LIB_CONFIG.announceDate;
+}
+
+function init(){
+  document.getElementById("wechatValue").textContent = LIB_CONFIG.wechatId;
+  loadState();
+  loadDocs();
+  applyCuratorConfig();
+  renderFreeHome();
+  renderMemberHome();
+  renderLibrary();
+  syncMemberUI();
+  updateResourceCounts();
+  scheduleDailyCodeRefresh();
+  loadRemoteFiles();
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
